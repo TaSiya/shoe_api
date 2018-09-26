@@ -33,6 +33,7 @@ create table cart (
     shoe text not null,
     shoeColour text not null,
     price FLOAT not null,
+    size int not null,
     quantity int not null,
     item_id int not null,
     foreign key (item_id) REFERENCES items(id)
