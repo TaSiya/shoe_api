@@ -40,5 +40,5 @@ create table cart (
 
 alter SEQUENCE cart_id_seq RESTART 1;
 
-\i sql/insertDefault.sql 
+\i sql/insertDefault.sql  
 
