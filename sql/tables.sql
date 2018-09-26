@@ -17,7 +17,7 @@ alter sequence colours_id_seq RESTART 1;
 create table items(
     id serial primary key not null,
     price FLOAT not null,
-    old_price int,
+    old_price FLOAT,
     size int not null,
     stock int not null,
     brand_id int not null,

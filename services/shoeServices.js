@@ -22,7 +22,7 @@ module.exports = function (pool) {
         let result = pool.query('select name, colourtag, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id');
         return result.rows;
     }
-    //********************************************************************************************* 
+    //********************************************************************************************************************************************** 
     //Inserting into the tables
     async function insertBrand (brand) {
         await pool.query('insert into brands (name) values ($1)', [brand]);
@@ -33,11 +33,11 @@ module.exports = function (pool) {
     async function insertCart (shoe) {
         await pool.query('insert into cart (shoe,shoeColour,price,size,quantity,item_id) values ($1,$2,$3,$4,$5,$6)',[shoe.name, shoe.colourtag, shoe.price, shoe.size, shoe.stock,shoe.id]);
     }
-    async function insertStock (price, size, stock, brand_id, colour_id) {
-        await pool.query('insert into items (price, size, stock, brand_id, colour_id) values ($1,$2,$3,$4,$5)',[price, size, stock, brand_id, colour_id]);
+    async function insertStock (shoe) {
+        await pool.query('insert into items (price, size, stock, brand_id, colour_id) values ($1,$2,$3,$4,$5)',[shoe.price, shoe.size, shoe.stock, shoe.brand_id, shoe.colour_id]);
     }
 
-    //*********************************************************************************************
+    //********************************************************************************************************************************************** 
     // Selecting specific data
     async function selectBrand (brand) {
         let result = await pool.query('select * from brands where name = $1',[brand]);
@@ -47,6 +47,12 @@ module.exports = function (pool) {
         let result = await pool.query('select * from colours where colourTag = $1',[colour]);
         return result.rows;
     }
+    async function selectStock(item) {
+        let result = await pool.query('select * from items where size =$1 and brand_id = $2 and colour_id =$3',[item.size,item.brand_id,item.colour_id]);
+        return result.rows;
+    }
+
+    //********************************************************************************************************************************************** 
     //filtering the stock
     async function filterPrice (price) {
         let result = await pool.query('select items.id, name, colourtag, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id where price=$1',[price]);
@@ -69,6 +75,27 @@ module.exports = function (pool) {
         return result.rows;
     }
 
+    //********************************************************************************************************************************************** 
+    //Updating the tables
+    async function updateStock (oldStock, oldPrice, item) {
+        await pool.query('update items set stock = $1, price = $2, old_price = $3 where size =$4 and brand_id = $5 and colour_id =$6',[item.stock+oldStock,item.price,oldPrice,item.size,item.brand_id,item.colour_id]);
+    }
+    
+    //********************************************************************************************************************************************** 
+    //Logic
+    async function addingStock(item) {
+        let shoe = await selectStock(item);
+        if(shoe.length == 0){
+            await insertStock(item)
+            return true;
+        }
+        else{
+            let oldStock = shoe[0].stock;
+            let oldPrice = shoe[0].price;
+            await updateStock(oldStock,oldPrice, item)
+            return false;
+        }
+    }
     return {
         allBrands,
         allColours,
@@ -85,7 +112,10 @@ module.exports = function (pool) {
         filterStock,
         filterSize,
         filterName,
-        filterColour
+        filterColour,
+        updateStock,
+        selectStock,
+        addingStock
 
     }
 }
