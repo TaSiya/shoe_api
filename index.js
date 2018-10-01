@@ -7,6 +7,7 @@ const pg = require("pg");
 
 const ShoeApi = require('./api/shoe_api');
 const shoeServices = require('./services/shoeServices');
+const Rounting = require('./routes/routing');
 
 const Pool = pg.Pool;
 
@@ -24,7 +25,7 @@ app.use(session({
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.use(express.static('/public'));
+app.use(express.static('public'));
 
 // should we use a SSL connection
 let useSSL = false;
@@ -40,7 +41,12 @@ const pool = new Pool({
     ssl : useSSL
 });
 
+const service = shoeServices(pool);
+const api = ShoeApi(service);
+const route = Rounting(service);
 
+app.get('/', route.client);
+app.get('/api/stock', api.getAll) // api 
 
 
 const PORT = process.env.PORT || 2018 ;

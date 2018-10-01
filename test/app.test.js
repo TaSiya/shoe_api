@@ -36,19 +36,19 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('inserting 2 shoes in the stock', async function () {
             let item = Services(pool);
-            let item1 = {price: 30, size: 1, stock: 10, brand_id: 1, colour_id: 5  }
+            let item1 = {price: 30, size: 1, stock: 10, brand_id: 1, colour_id: 5  };
             await item.addingStock(item1);
-            let item2 = {price: 99.99, size: 5, stock: 20, brand_id: 2, colour_id: 7  }
+            let item2 = {price: 99.99, size: 5, stock: 20, brand_id: 2, colour_id: 7  };
             await item.addingStock(item2);
             let result = await item.allStock();
             assert.strictEqual(result.length, 2);
         })
         it('adding four (4) shoes in the stock', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  }
-            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  }
-            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  }
-            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
+            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  };
+            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
             await item.addingStock(item1);
             await item.addingStock(item2);
             await item.addingStock(item3);
@@ -64,12 +64,12 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('updating the stock of single shoe', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  }
-            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  }
-            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  }
-            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
-            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
-            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  }
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
+            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  };
+            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  };
             await item.addingStock(item1);
             await item.addingStock(item2);
             await item.addingStock(item3);
@@ -81,12 +81,12 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('updating the price of single shoe', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  }
-            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  }
-            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  }
-            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
-            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
-            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  }
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
+            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  };
+            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  };
             await item.addingStock(item1);
             await item.addingStock(item2);
             await item.addingStock(item3);
@@ -98,12 +98,12 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('checking the old price of shoe', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  }
-            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  }
-            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  }
-            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
-            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
-            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  }
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
+            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  };
+            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  };
             await item.addingStock(item1);
             await item.addingStock(item2);
             await item.addingStock(item3);
@@ -115,15 +115,18 @@ describe('Shoe Catalogue API tests', function () {
         });
     });
     describe('Filtering the shoes', function () {
+        beforeEach(async function () {
+            await pool.query('delete from items');
+        });
         it('should filter using stock', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  }
-            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  }
-            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  }
-            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
-            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  }
-            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  }
-            let item7 = {price: 399.99, size: 6, stock: 15, brand_id: 5, colour_id: 1  }
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
+            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 2, colour_id: 1  };
+            let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  };
+            let item7 = {price: 399.99, size: 6, stock: 15, brand_id: 5, colour_id: 1  };
             await item.addingStock(item1);
             await item.addingStock(item2);
             await item.addingStock(item3);
@@ -132,6 +135,40 @@ describe('Shoe Catalogue API tests', function () {
             await item.addingStock(item6);
             await item.addingStock(item7);
             let result = await item.filterStock(15);
+            assert.strictEqual(result.length, 2);
+        });
+        it('should filter using colour', async function () {
+            let item = Services(pool);
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
+            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 2, colour_id: 1  };
+            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  };
+            let item7 = {price: 399.99, size: 6, stock: 15, brand_id: 5, colour_id: 1  };
+            await item.addingStock(item1);
+            await item.addingStock(item2);
+            await item.addingStock(item3);
+            await item.addingStock(item5);
+            await item.addingStock(item6);
+            await item.addingStock(item7);
+            let result = await item.filterColour('white');
+            assert.strictEqual(result.length, 2);
+        });
+        it('should filter using size', async function () {
+            let item = Services(pool);
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
+            let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 2, colour_id: 1  };
+            let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
+            let item6 = {price: 5000.00, size: 5, stock: 1, brand_id: 1, colour_id: 5  };
+            let item7 = {price: 399.99, size: 6, stock: 15, brand_id: 5, colour_id: 1  };
+            await item.addingStock(item1);
+            await item.addingStock(item2);
+            await item.addingStock(item3);
+            await item.addingStock(item5);
+            await item.addingStock(item6);
+            await item.addingStock(item7);
+            let result = await item.filterSize(6);
             assert.strictEqual(result.length, 2);
         });
     });

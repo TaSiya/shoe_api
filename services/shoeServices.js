@@ -19,7 +19,7 @@ module.exports = function (pool) {
         return result.rows; 
     }
     async function allJoined () {
-        let result = pool.query('select name, colourtag, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id');
+        let result = await pool.query('select items.id, name, colourtag, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id');
         return result.rows;
     }
     //********************************************************************************************************************************************** 
@@ -49,6 +49,10 @@ module.exports = function (pool) {
     }
     async function selectStock(item) {
         let result = await pool.query('select * from items where size =$1 and brand_id = $2 and colour_id =$3',[item.size,item.brand_id,item.colour_id]);
+        return result.rows;
+    }
+    async function selectItem (id) {
+        let result = await pool.query('select items.id, name, colourtag, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id');
         return result.rows;
     }
 
@@ -115,7 +119,7 @@ module.exports = function (pool) {
         filterColour,
         updateStock,
         selectStock,
-        addingStock
+        selectItem
 
     }
 }

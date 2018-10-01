@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="row w-100">
+        <div class="col mt-5 text-center ">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Cart
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Total: R{{total}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Brand</th>
+                                        <th scope="col">Colour</th>
+                                        <th scope="col">Size</th>
+                                        <th scope="col">Stock</th>
+                                        <th scope="col">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each cart}}
+                                    <tr>
+                                        <td>{{name}}</td>
+                                        <td>{{colourtag}}</td>
+                                        <td>{{size}}</td>
+                                        <td>{{stock}}</td>
+                                        <td>{{price}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-danger" data-dismiss="modal">Clear cart</a>
+                            <a type="button" class="btn btn-primary">Buy shoe(s)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row mt-5">
+                <div class="col">
+                    <a class="btn btn-primary text-left" data-toggle="collapse" href="#adding" role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Adding the stock
+                    </a>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary text-right" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Button with data-target
+                    </button>
+                </div>
+            </div>
+            <div class="collapse" id="adding">
+                <div class="card card-body">
+                    <h2>Adding to the stock</h2>
+                    <form action="/add" method="POST">
+                    
+                    <button class="btn btn-primary" type="submit">add stock</button>
+                    </form>
+                </div>
+            </div>
+            <div class="collapse" id="second">
+                <div class="card card-body">
+                    <h2>Filtering the stock</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        {{#each stock}}
+        <div class="col">
+            <div class="card" style="width: 14rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{name}}</h5>
+                    <p class="card-text">Size : {{size}}</p>
+                    <p class="card-text">Stock : {{stock}}</p>
+                    <div class="card-text foo {{colourtag}} w-100"></div>
+                    <p class="text-left ml-2">R {{old_price}}<span class="text-right pl-5 ml-2">R {{price}}</span></p>
+                    <a href="/addToCart/{{id}}" class="btn btn-primary">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
