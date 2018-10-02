@@ -1,0 +1,23 @@
+.foo {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+  }
+
+  .green{
+      background-color: green;
+  }
+
+  .crimson {
+    background-color: crimson
+  }
+
+  .orange {
+    background-color: orange
+  }
+
+  .black {
+      background-color: black;
+  }
