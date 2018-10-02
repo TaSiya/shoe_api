@@ -6,18 +6,34 @@
     border: 1px solid rgba(0, 0, 0, .2);
   }
 
-  .green{
-      background-color: green;
-  }
+.pink{
+    background-color: pink;
+}
 
-  .crimson {
-    background-color: crimson
-  }
+.red {
+  background-color: crimson
+}
 
-  .orange {
-    background-color: orange
-  }
+.orange {
+  background-color: orange
+}
 
-  .black {
-      background-color: black;
-  }
+.black {
+    background-color: black;
+}
+
+.grey {
+  background-color: #ddd;
+}
+
+.white {
+  background-color: white;
+}
+
+.black {
+  background-color: black;
+}
+
+.yellow {
+  background-color: yellow;
+}

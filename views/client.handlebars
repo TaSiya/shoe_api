@@ -60,22 +60,74 @@
                     </a>
                 </div>
                 <div class="col">
-                    <button class="btn btn-primary text-right" type="button" data-toggle="collapse" data-target="#collapseExample"
+                    <button class="btn btn-primary text-right" type="button" data-toggle="collapse" data-target="#filter"
                         aria-expanded="false" aria-controls="collapseExample">
-                        Button with data-target
+                        Filtering the stock
                     </button>
                 </div>
             </div>
             <div class="collapse" id="adding">
                 <div class="card card-body">
-                    <h2>Adding to the stock</h2>
+                    <h2 class="text-secondary mb-4">Adding to the stock</h2>
                     <form action="/add" method="POST">
-                    
-                    <button class="btn btn-primary" type="submit">add stock</button>
+                        <label for="brand">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="Brand">Brand</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" name='brands'>
+                                    <option selected>Choose shoe brand</option>
+                                    {{#each allBrands}}
+                                    <option name='brands' value="{{name}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </label>
+                        <label for="colours">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="Colour">Colour</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" name='colours'>
+                                    <option selected>Choose colour</option>
+                                    {{#each allColours}}
+                                    <option value="{{colourtag}}">{{colourtag}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </label>
+                        <label for="size">
+                             <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="Size">Size</label>
+                                </div>
+                                <input type="number" name='size' >
+                            </div>
+                        </label>
+                        <label for="stock">
+                             <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="Stock">Stock</label>
+                                </div>
+                                <input type="number" name='stock' >
+                            </div>
+                        </label>
+                        <label for="stock">
+                             <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="price">Price</label>
+                                </div>
+                                <input type="number" step="0.01" name='price' >
+                            </div>
+
+                        <div class="w-100 text-center">
+                            <button class="btn btn-primary" type="submit">add stock</button>
+                        </div>
+
                     </form>
                 </div>
             </div>
-            <div class="collapse" id="second">
+            <div class="collapse" id="filter">
                 <div class="card card-body">
                     <h2>Filtering the stock</h2>
 
@@ -85,16 +137,16 @@
     </div>
     <div class="row mt-5">
         {{#each stock}}
-        <div class="col">
+        <div class="col mb-3">
             <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <img class="card-img-top" src="./img/{{name}}.jpg" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{name}}</h5>
                     <p class="card-text">Size : {{size}}</p>
                     <p class="card-text">Stock : {{stock}}</p>
                     <div class="card-text foo {{colourtag}} w-100"></div>
                     <p class="text-left ml-2">R {{old_price}}<span class="text-right pl-5 ml-2">R {{price}}</span></p>
-                    <a href="/addToCart/{{id}}" class="btn btn-primary">Add to cart</a>
+                    <a href="/added/{{id}}" class="btn btn-primary">Add to cart</a>
                 </div>
             </div>
         </div>

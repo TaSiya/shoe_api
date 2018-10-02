@@ -46,6 +46,7 @@ const api = ShoeApi(service);
 const route = Rounting(service);
 
 app.get('/', route.client);
+app.post('/add', route.addStock); // adding stock
 app.get('/api/stock', api.getAll) // api 
 
 
