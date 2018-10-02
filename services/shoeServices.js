@@ -19,7 +19,7 @@ module.exports = function (pool) {
         return result.rows; 
     }
     async function allJoined () {
-        let result = await pool.query('select items.id, name, colourtag, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id');
+        let result = await pool.query('select items.id, name, colourtag,old_price, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id');
         return result.rows;
     }
     //********************************************************************************************************************************************** 
@@ -82,7 +82,7 @@ module.exports = function (pool) {
     //********************************************************************************************************************************************** 
     //Updating the tables
     async function updateStock (oldStock, oldPrice, item) {
-        await pool.query('update items set stock = $1, price = $2, old_price = $3 where size =$4 and brand_id = $5 and colour_id =$6',[item.stock+oldStock,item.price,oldPrice,item.size,item.brand_id,item.colour_id]);
+        await pool.query('update items set stock = $1, price = $2, old_price = $3 where size =$4 and brand_id = $5 and colour_id =$6',[oldStock,item.price,oldPrice,item.size,item.brand_id,item.colour_id]);
     }
     
     //********************************************************************************************************************************************** 
@@ -94,9 +94,10 @@ module.exports = function (pool) {
             return true;
         }
         else{
-            let oldStock = shoe[0].stock;
+            let newStock = shoe[0].stock + item.stock;
+            
             let oldPrice = shoe[0].price;
-            await updateStock(oldStock,oldPrice, item)
+            await updateStock(newStock,oldPrice, item)
             return false;
         }
     }
@@ -119,7 +120,8 @@ module.exports = function (pool) {
         filterColour,
         updateStock,
         selectStock,
-        selectItem
+        selectItem,
+        addingStock
 
     }
 }

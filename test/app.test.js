@@ -10,7 +10,7 @@ if (process.env.DATABASE_URL && !local){
     useSSL = true;
 }
 // which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgresql://tasiya:pg123@localhost:5432/shoe_api_db';
+const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/shoe_api_db';
 
 const pool = new Pool({
     connectionString,
@@ -38,14 +38,14 @@ describe('Shoe Catalogue API tests', function () {
             let item = Services(pool);
             let item1 = {price: 30, size: 1, stock: 10, brand_id: 1, colour_id: 5  };
             await item.addingStock(item1);
-            let item2 = {price: 99.99, size: 5, stock: 20, brand_id: 2, colour_id: 7  };
+            let item2 = {price: 99.99, size: 5, stock: 20, brand_id: 2, colour_id: 2  };
             await item.addingStock(item2);
             let result = await item.allStock();
             assert.strictEqual(result.length, 2);
         })
         it('adding four (4) shoes in the stock', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 5  };
             let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
             let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  };
             let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
@@ -64,7 +64,7 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('updating the stock of single shoe', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 6  };
             let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
             let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  };
             let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
@@ -81,7 +81,7 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('updating the price of single shoe', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 6  };
             let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
             let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  };
             let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
@@ -98,7 +98,7 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('checking the old price of shoe', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 3  };
             let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
             let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 6, colour_id: 1  };
             let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
@@ -120,7 +120,7 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('should filter using stock', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 3  };
             let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
             let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 2, colour_id: 1  };
             let item4 = {price: 199.99, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
@@ -139,7 +139,7 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('should filter using colour', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 6  };
             let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
             let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 2, colour_id: 1  };
             let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  };
@@ -156,7 +156,7 @@ describe('Shoe Catalogue API tests', function () {
         });
         it('should filter using size', async function () {
             let item = Services(pool);
-            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 8  };
+            let item1 = {price: 333.49, size: 4, stock: 12, brand_id: 4, colour_id: 6  };
             let item2 = {price: 99.99, size: 3, stock: 32, brand_id: 3, colour_id: 2  };
             let item3 = {price: 399.99, size: 6, stock: 15, brand_id: 2, colour_id: 1  };
             let item5 = {price: 200.00, size: 5, stock: 20, brand_id: 1, colour_id: 5  };

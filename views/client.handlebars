@@ -31,10 +31,10 @@
                                 <tbody>
                                     {{#each cart}}
                                     <tr>
-                                        <td>{{name}}</td>
-                                        <td>{{colourtag}}</td>
+                                        <td>{{shoe}}</td>
+                                        <td>{{shoeColour}}</td>
                                         <td>{{size}}</td>
-                                        <td>{{stock}}</td>
+                                        <td>{{qunatity}}</td>
                                         <td>{{price}}</td>
                                     </tr>
                                     {{/each}}
@@ -69,16 +69,16 @@
             <div class="collapse" id="adding">
                 <div class="card card-body">
                     <h2 class="text-secondary mb-4">Adding to the stock</h2>
-                    <form action="/add" method="POST">
+                    <form action="/add" method="post">
                         <label for="brand">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="Brand">Brand</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01" name='brands'>
+                                <select class="custom-select" name='brandTag'>
                                     <option selected>Choose shoe brand</option>
                                     {{#each allBrands}}
-                                    <option name='brands' value="{{name}}">{{name}}</option>
+                                    <option value="{{name}}">{{name}}</option>
                                     {{/each}}
                                 </select>
                             </div>
@@ -88,7 +88,7 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="Colour">Colour</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01" name='colours'>
+                                <select class="custom-select" name='colours'>
                                     <option selected>Choose colour</option>
                                     {{#each allColours}}
                                     <option value="{{colourtag}}">{{colourtag}}</option>
@@ -97,32 +97,32 @@
                             </div>
                         </label>
                         <label for="size">
-                             <div class="input-group mb-3">
+                            <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="Size">Size</label>
                                 </div>
-                                <input type="number" name='size' >
+                                <input type="number" name='size'>
                             </div>
                         </label>
                         <label for="stock">
-                             <div class="input-group mb-3">
+                            <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="Stock">Stock</label>
                                 </div>
-                                <input type="number" name='stock' >
+                                <input type="number" name='stock'>
                             </div>
                         </label>
                         <label for="stock">
-                             <div class="input-group mb-3">
+                            <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="price">Price</label>
                                 </div>
-                                <input type="number" step="0.01" name='price' >
+                                <input type="number" step="0.01" name='price'>
                             </div>
 
-                        <div class="w-100 text-center">
-                            <button class="btn btn-primary" type="submit">add stock</button>
-                        </div>
+                            <div class="w-100 text-center">
+                                <button class="btn btn-primary" type="submit">add stock</button>
+                            </div>
 
                     </form>
                 </div>
@@ -130,7 +130,7 @@
             <div class="collapse" id="filter">
                 <div class="card card-body">
                     <h2>Filtering the stock</h2>
-
+                    
                 </div>
             </div>
         </div>
@@ -145,7 +145,7 @@
                     <p class="card-text">Size : {{size}}</p>
                     <p class="card-text">Stock : {{stock}}</p>
                     <div class="card-text foo {{colourtag}} w-100"></div>
-                    <p class="text-left ml-2">R {{old_price}}<span class="text-right pl-5 ml-2">R {{price}}</span></p>
+                    <p class="text-left ml-1"><del>R {{old_price}}</del><span class="text-right pl-5 ml-1">R {{price}}</span></p>
                     <a href="/added/{{id}}" class="btn btn-primary">Add to cart</a>
                 </div>
             </div>

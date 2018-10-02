@@ -21,6 +21,12 @@ app.use(session({
   
   app.use(flash());
 
+  app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
+ 
+
 //setup template handlebars as the template engine
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -34,7 +40,7 @@ if (process.env.DATABASE_URL && !local){
     useSSL = true;
 }
 // which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgresql://tasiya:pg123@localhost:5432/shoe_api_db';
+const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/shoe_api_db';
 
 const pool = new Pool({
     connectionString,
@@ -47,7 +53,9 @@ const route = Rounting(service);
 
 app.get('/', route.client);
 app.post('/add', route.addStock); // adding stock
-app.get('/api/stock', api.getAll) // api 
+// app.get('/filter:')
+
+app.get('/api/stock', api.getAll); // api 
 
 
 const PORT = process.env.PORT || 2018 ;
