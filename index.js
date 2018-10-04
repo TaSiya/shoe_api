@@ -55,7 +55,9 @@ app.get('/', route.client);
 app.post('/add', route.addStock); // adding stock
 // app.get('/filter:')
 
-app.get('/api/stock', api.getAll); // api 
+// API  
+app.get('/api/stock', api.getAll); 
+app.get('/api/default', api.dropDowns);
 
 
 const PORT = process.env.PORT || 2018 ;

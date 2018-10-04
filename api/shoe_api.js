@@ -9,9 +9,21 @@ module.exports = function(service) {
         } catch(err) {
             res.send(err);
         }
+    } 
+    async function dropDowns (req, res) {
+        try{
+            let brands = await service.allBrands();
+            let colours = await service.allColours();
+            res.json({
+                status : 'success',
+                brands,
+                colours
+            })
+        } catch(err) {
+        }
     }
-
     return {
-        getAll
+        getAll,
+        dropDowns
     }
 }

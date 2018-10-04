@@ -30,6 +30,20 @@
                 {{/each}}
         </script>
 
+        <script type="text/x-template" class="dropdowsBrandsTemplate">
+            <option selected>Choose shoe brand</option>
+            {{#each allBrands}}
+            <option value="{{name}}">{{name}}</option>
+            {{/each}}
+        </script>
+
+        <script type="text/x-template" class="dropdowsColoursTemplate">
+            <option selected>Choose colour</option>
+            {{#each allColours}}
+            <option value="{{colourtag}}">{{colourtag}}</option>
+            {{/each}}
+        </script>
+
         
     <title>Shoe API</title>
 </head>
@@ -113,11 +127,8 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="Brand">Brand</label>
                                     </div>
-                                    <select class="custom-select" name='brandTag'>
-                                        <option selected>Choose shoe brand</option>
-                                        {{#each allBrands}}
-                                        <option value="{{name}}">{{name}}</option>
-                                        {{/each}}
+                                    <select class="custom-select brandSection" name='brandTag'>
+                                       <!-- insert brand dropdown values -->
                                     </select>
                                 </div>
                             </label>
@@ -126,11 +137,8 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="Colour">Colour</label>
                                     </div>
-                                    <select class="custom-select" name='colours'>
-                                        <option selected>Choose colour</option>
-                                        {{#each allColours}}
-                                        <option value="{{colourtag}}">{{colourtag}}</option>
-                                        {{/each}}
+                                    <select class="custom-select colourSection" name='colours'>
+                                       <!-- insert colour dropdowns values -->
                                     </select>
                                 </div>
                             </label>
