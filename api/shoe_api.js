@@ -20,10 +20,23 @@ module.exports = function(service) {
                 colours
             })
         } catch(err) {
+
+        }
+    }
+    async function loadAPI (req, res) {
+        try{
+            let cart = await service.allCart();
+            let stock = await service.allJoined();
+            let allBrands = await service.allBrands();
+            let allColours = await service.allColours();
+            res.json({status: 'success',cart, stock, allBrands, allColours});
+        } catch(err) {
+
         }
     }
     return {
         getAll,
-        dropDowns
+        dropDowns,
+        loadAPI
     }
 }

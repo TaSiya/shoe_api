@@ -1,36 +1,55 @@
 const displayStock = document.querySelector('.insertStock'); //Display the stock
 const brandSection = document.querySelector('.brandSection');
 const colourSection = document.querySelector('.colourSection');
+const cartDisplay = document.querySelector('.cartDisplay');
 const stockTemplate = document.querySelector('.stockTemplate').innerHTML; // Template for stock display
-const dropdowsBrandsTemplate = document.querySelector('.dropdowsBrandsTemplate').innerHTML;
-const dropdowsColoursTemplate = document.querySelector('.dropdowsColoursTemplate').innerHTML;
+// const dropdowsBrandsTemplate = document.querySelector('.dropdowsBrandsTemplate').innerHTML;
+// const dropdowsColoursTemplate = document.querySelector('.dropdowsColoursTemplate').innerHTML;
 
 
 document.addEventListener("DOMContentLoaded", function () {
     const api = APIServices();
 
     let stockTemplateInstance = Handlebars.compile(stockTemplate);
-    api.displayAll().then(function (result) {
-        let response = result.data;
-        let data = response.result;
-        let productTableHTML = stockTemplateInstance({
-            stock : data
-        });
-        displayStock.innerHTML = productTableHTML;
-    })
 
-    let brandTemplateInstance = Handlebars.compile(dropdowsBrandsTemplate);
-    let colourTemplateInstance = Handlebars.compile(dropdowsColoursTemplate);
-    api.dropdowns().then(function (result) {
+    
+    // let brandTemplateInstance = Handlebars.compile(dropdowsBrandsTemplate);
+    // let colourTemplateInstance = Handlebars.compile(dropdowsColoursTemplate);
+
+    // api.displayAll().then(function (result) {
+    //     let response = result.data;
+    //     let data = response.result;
+    //     let productTableHTML = stockTemplateInstance({
+    //         stock : data
+    //     });
+    //     displayStock.innerHTML = productTableHTML;
+    // })
+
+    
+    // api.dropdowns().then(function (result) {
+    //     let response = result.data;
+    //     let brandData = response.brands;
+    //     let colourData = response.colours;
+    //     let brandHTML = brandTemplateInstance({
+    //         allBrands : brandData
+    //     });
+    //     let colourHTML = colourTemplateInstance({
+    //         allColours : colourData
+    //     });
+    //     brandSection.innerHTML = brandHTML;
+    //     colourSection.innerHTML = colourHTML;
+    // });
+
+    api.allAPI().then( function (result) {
         let response = result.data;
-        let brandData = response.brands;
-        let colourData = response.colours;
-        let brandHTML = brandTemplateInstance({
-            allBrands : brandData
-        });
-        let colourHTML = colourTemplateInstance({
-            allColours : colourData
-        });
+        let brandData = response.allBrands;
+        let colourData = response.allColours;
+        let stock = response.stock;
+        let cart = response.cart;
+        let brandHTML = stockTemplateInstance({allBrands : brandData});
+        let colourHTML = stockTemplateInstance({allColours : colourData});
+        let cartHTML = stockTemplateInstance({cart : colourData});
+        let stockHTML = stockTemplateInstance({stock : colourData});
         brandSection.innerHTML = brandHTML;
         colourSection.innerHTML = colourHTML;
     });
@@ -46,9 +65,14 @@ function APIServices () {
     function dropdowns () {
         return axios.get('/api/default');
     } 
+
+    function allAPI() {
+        return axios.get('/api/shoes');
+    }
        
     return {
         displayAll,
-        dropdowns
+        dropdowns,
+        allAPI
     }
 }

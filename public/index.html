@@ -9,10 +9,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
-        <script type="text/x-template" class="stockTemplate">
-                {{#each stock}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+    <script type="text/x-template" class="stockTemplate">
+        {{#each stock}}
                 <div class="col mb-3">
                     <div class="card" style="width: 14rem;">
                         <img class="card-img-top" src="./img/{{name}}.jpg" alt="Card image cap">
@@ -27,24 +27,45 @@
                         </div>
                     </div>
                 </div>
-                {{/each}}
+        {{/each}}
+
+        
+        {{#each allBrands}}
+            <option value="{{name}}">{{name}}</option>
+        {{/each}}
+
+        <option selected>Choose colour</option>
+        {{#each allColours}}
+            <option value="{{colourtag}}">{{colourtag}}</option>
+        {{/each}}
+
+        {{#each cart}}
+            <tr>
+                <td>{{shoe}}</td>
+                <td>{{shoeColour}}</td>
+                <td>{{size}}</td>
+                <td>{{qunatity}}</td>
+                <td>{{price}}</td>
+            </tr>
+        {{/each}}
+                
         </script>
 
-        <script type="text/x-template" class="dropdowsBrandsTemplate">
+    <!-- <script type="text/x-template" class="dropdowsBrandsTemplate">
             <option selected>Choose shoe brand</option>
             {{#each allBrands}}
             <option value="{{name}}">{{name}}</option>
             {{/each}}
-        </script>
+        </script> -->
 
-        <script type="text/x-template" class="dropdowsColoursTemplate">
-            <option selected>Choose colour</option>
+    <!-- <script type="text/x-template" class="dropdowsColoursTemplate">
+        <option selected>Choose colour</option>
             {{#each allColours}}
             <option value="{{colourtag}}">{{colourtag}}</option>
             {{/each}}
-        </script>
+        </script> -->
 
-        
+
     <title>Shoe API</title>
 </head>
 
@@ -80,16 +101,8 @@
                                             <th scope="col">Price</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {{#each cart}}
-                                        <tr>
-                                            <td>{{shoe}}</td>
-                                            <td>{{shoeColour}}</td>
-                                            <td>{{size}}</td>
-                                            <td>{{qunatity}}</td>
-                                            <td>{{price}}</td>
-                                        </tr>
-                                        {{/each}}
+                                    <tbody class='cartDisplay'>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -128,7 +141,8 @@
                                         <label class="input-group-text" for="Brand">Brand</label>
                                     </div>
                                     <select class="custom-select brandSection" name='brandTag'>
-                                       <!-- insert brand dropdown values -->
+                                        <!-- insert brand dropdown values -->
+                                        <option selected>Choose shoe brand</option>
                                     </select>
                                 </div>
                             </label>
@@ -138,7 +152,7 @@
                                         <label class="input-group-text" for="Colour">Colour</label>
                                     </div>
                                     <select class="custom-select colourSection" name='colours'>
-                                       <!-- insert colour dropdowns values -->
+                                        <!-- insert colour dropdowns values -->
                                     </select>
                                 </div>
                             </label>
@@ -182,7 +196,7 @@
             </div>
         </div>
         <div class="row mt-5 insertStock">
-           <!-- Put stock here  -->
+            <!-- Put stock here  -->
         </div>
     </div>
 
