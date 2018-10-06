@@ -28,17 +28,24 @@
                     </div>
                 </div>
         {{/each}}
+        </script>
 
-        
+    <script type="text/x-template" class="dropdowsBrandsTemplate">
+        <option selected>Choose shoe brand</option>
         {{#each allBrands}}
             <option value="{{name}}">{{name}}</option>
         {{/each}}
+    </script> 
 
+    <script type="text/x-template" class="dropdowsColoursTemplate">
         <option selected>Choose colour</option>
         {{#each allColours}}
             <option value="{{colourtag}}">{{colourtag}}</option>
         {{/each}}
+    </script>
 
+    <script type="text/x-template" class="cartTemplate">
+        {{total}}
         {{#each cart}}
             <tr>
                 <td>{{shoe}}</td>
@@ -48,23 +55,7 @@
                 <td>{{price}}</td>
             </tr>
         {{/each}}
-                
-        </script>
-
-    <!-- <script type="text/x-template" class="dropdowsBrandsTemplate">
-            <option selected>Choose shoe brand</option>
-            {{#each allBrands}}
-            <option value="{{name}}">{{name}}</option>
-            {{/each}}
-        </script> -->
-
-    <!-- <script type="text/x-template" class="dropdowsColoursTemplate">
-        <option selected>Choose colour</option>
-            {{#each allColours}}
-            <option value="{{colourtag}}">{{colourtag}}</option>
-            {{/each}}
-        </script> -->
-
+    </script>
 
     <title>Shoe API</title>
 </head>
@@ -85,7 +76,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Total: R{{total}}</h5>
+                                <h5 class="modal-title " id="exampleModalLabel">Total: R <span class="totalDisplay"></span> </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>

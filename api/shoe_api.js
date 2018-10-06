@@ -23,6 +23,26 @@ module.exports = function(service) {
 
         }
     }
+    async function cartSection(req, res) {
+        try{
+            let cart = await service.allCart();
+            let total = 0 ;
+            for(let i = 0 ; i < cart.length ; i ++) {
+                total = total + cart[i].price * cart[i].quantity;
+            }
+
+            res.json({
+                status : 'success',
+                total,
+                cart
+            })
+        } catch(err) {
+            res.json({
+                status : 'not found',
+                response : err.stack
+            })
+        }
+    }
     async function loadAPI (req, res) {
         try{
             let cart = await service.allCart();
@@ -37,6 +57,7 @@ module.exports = function(service) {
     return {
         getAll,
         dropDowns,
+        cartSection,
         loadAPI
     }
 }
