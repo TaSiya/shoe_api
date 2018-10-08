@@ -39,6 +39,8 @@ create table cart (
     foreign key (item_id) REFERENCES items(id)
 );
 
+-- insert into cart (shoe, shoeColour, price, size, quantity, item_id) values ('amateki','white',890.99,6,15,71);
+ 
 alter SEQUENCE cart_id_seq RESTART 1;
 
 \i sql/insertDefault.sql  

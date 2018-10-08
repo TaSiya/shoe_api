@@ -2,10 +2,11 @@ const displayStock = document.querySelector('.insertStock'); //Display the stock
 const brandSection = document.querySelector('.brandSection');
 const colourSection = document.querySelector('.colourSection');
 const cartDisplay = document.querySelector('.cartDisplay');
+const totalDisplay = document.querySelector('.totalDisplay');
 const stockTemplate = document.querySelector('.stockTemplate').innerHTML; // Template for stock display
 const dropdowsBrandsTemplate = document.querySelector('.dropdowsBrandsTemplate').innerHTML;
 const dropdowsColoursTemplate = document.querySelector('.dropdowsColoursTemplate').innerHTML;
-const cartTemplate = dpcument.querySelector('.cartTemplate').innerHTML;
+const cartTemplate = document.querySelector('.cartTemplate').innerHTML;
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -44,23 +45,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let cartCompiler = Handlebars.compile(cartTemplate);
 
     api.cartData().then(function (result) {
-        console.log(result);
-        // let response = result.data
+        let response = result.data;
+        let cartItems = response.cart;
+        let total = response.total;
+        let totalCompiled = cartCompiler({
+            cart : cartItems
+        })
+        cartDisplay.innerHTML = totalCompiled;
+        totalDisplay.innerHTML = total;
     });
-
-    // api.allAPI().then( function (result) {
-    //     let response = result.data;
-    //     let brandData = response.allBrands;
-    //     let colourData = response.allColours;
-    //     let stock = response.stock;
-    //     let cart = response.cart;
-    //     let brandHTML = stockTemplateInstance({allBrands : brandData});
-    //     let colourHTML = stockTemplateInstance({allColours : colourData});
-    //     let cartHTML = stockTemplateInstance({cart : colourData});
-    //     let stockHTML = stockTemplateInstance({stock : colourData});
-    //     brandSection.innerHTML = brandHTML;
-    //     colourSection.innerHTML = colourHTML;
-    // });
 
 });
 
