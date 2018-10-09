@@ -55,13 +55,14 @@ app.get('/', route.client);
 app.post('/add', route.addStock); // adding stock
 app.get('/added/:id', route.addCart);
 app.get('/remove/:id', route.cancelItem);
-app.get('/filter/:type', route.filterBy);
+app.get('/filter/brand/:type', route.filterByBrand);
+app.get('/filter/colour/:type', route.filterByColour);
 
 // API  
 app.get('/api/stock', api.getAll); 
 app.get('/api/default', api.dropDowns);
 app.get('/api/cart', api.cartSection);
-app.get('/api/shoes', api.loadAPI);
+// app.get('/api/shoes', api.loadAPI);
 
 
 const PORT = process.env.PORT || 2018 ;

@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
     <script type="text/x-template" class="stockTemplate">
@@ -60,13 +61,13 @@
     
     <script type="text/x-template" class="filterBrandTemplate">
         {{#each allBrands}}
-            <a class="dropdown-item" href="/filter/{{name}}">{{name}}</a>
+            <a class="dropdown-item" href="/filter/brand/{{name}}">{{name}}</a>
         {{/each}}
     </script>
 
     <script type="text/x-template" class="filterColourTemplate">
         {{#each allColours}}
-            <a class="dropdown-item" href="/filter/{{colourtag}}">{{colourtag}}</a>
+            <a class="dropdown-item" href="/filter/colour/{{colourtag}}">{{colourtag}}</a>
         {{/each}}
     </script>
 

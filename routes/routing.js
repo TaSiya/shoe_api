@@ -54,11 +54,20 @@ module.exports = function (service) {
             res.send(err.stack);
         }
     }
-    async function filterBy (req, res) {
+    async function filterByBrand (req, res) {
+        try{
+            let value = req.params.type;
+            // let 
+            res.redirect('/');
+        } catch(err) {
+            res.send(err.stack)
+        }
+    }
+    async function filterByColour(req, res) {
         try{
 
         } catch(err) {
-            res.send(err.stack)
+            res.send(err.stack);
         }
     }
     return {
@@ -66,6 +75,7 @@ module.exports = function (service) {
         addStock,
         addCart,
         cancelItem,
-        filterBy
+        filterByBrand,
+        filterByColour
     }
 }

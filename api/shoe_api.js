@@ -43,13 +43,24 @@ module.exports = function(service) {
             })
         }
     }
-    async function loadAPI (req, res) {
+    async function addStock (req, res) {
         try{
-            let cart = await service.allCart();
-            let stock = await service.allJoined();
-            let allBrands = await service.allBrands();
-            let allColours = await service.allColours();
-            res.json({status: 'success',cart, stock, allBrands, allColours});
+            let name = req.body.brandTag;
+            let colourtag = req.body.colours;
+            let size = parseInt(req.body.size);
+            let stocks = parseInt(req.body.stock);
+            let price = parseFloat(req.body.price);
+            let brand = await service.selectBrand(name);
+            let colour = await service.selectColour(colourtag);
+            let item = {
+                brand_id :  brand[0].id,
+                colour_id :  colour[0].id ,
+                size : size,
+                price : price ,
+                stock : stocks 
+            }
+            await service.insertStock(item);
+            res.json({status: 'success'});
         } catch(err) {
 
         }
@@ -58,6 +69,6 @@ module.exports = function(service) {
         getAll,
         dropDowns,
         cartSection,
-        loadAPI
+        addStock
     }
 }

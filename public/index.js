@@ -85,6 +85,10 @@ function APIServices () {
     function allAPI() {
         return axios.get('/api/shoes');
     }
+
+    function allAPI(brand) {
+        return axios.get('/api/shoes');
+    }
     
     return {
         displayAll,
