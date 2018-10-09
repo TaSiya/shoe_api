@@ -62,7 +62,6 @@ app.get('/filter/colour/:type', route.filterByColour);
 app.get('/api/stock', api.getAll); 
 app.get('/api/default', api.dropDowns);
 app.get('/api/cart', api.cartSection);
-// app.get('/api/shoes', api.loadAPI);
 
 
 const PORT = process.env.PORT || 2018 ;

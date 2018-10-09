@@ -13,7 +13,6 @@ module.exports = function (service) {
     async function addStock(req, res) {
         try{
             let name = req.body.brandTag;
-            
             let colourtag = req.body.colours;
             let size = parseInt(req.body.size);
             let stocks = parseInt(req.body.stock);
