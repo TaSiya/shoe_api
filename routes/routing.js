@@ -48,15 +48,24 @@ module.exports = function (service) {
             let idData = await service.selectInCart(id);
             console.log(idData[0]);
             
-            await service.insertStock(idData[0])
+            await service.insertStock(idData[0]);
+            res.redirect('/');
         } catch(err) {
             res.send(err.stack);
+        }
+    }
+    async function filterBy (req, res) {
+        try{
+
+        } catch(err) {
+            res.send(err.stack)
         }
     }
     return {
         client,
         addStock,
         addCart,
-        cancelItem
+        cancelItem,
+        filterBy
     }
 }

@@ -40,7 +40,7 @@ if (process.env.DATABASE_URL && !local){
     useSSL = true;
 }
 // which db connection to use
-const connectionString = process.env.DATABASE_URL || 'postgresql://tasiya:pg123@localhost:5432/shoe_api_db';
+const connectionString = process.env.DATABASE_URL || 'postgresql://coder:pg123@localhost:5432/shoe_api_db';
 
 const pool = new Pool({
     connectionString,
@@ -55,7 +55,7 @@ app.get('/', route.client);
 app.post('/add', route.addStock); // adding stock
 app.get('/added/:id', route.addCart);
 app.get('/remove/:id', route.cancelItem);
-// app.get('/filter:')
+app.get('/filter/:type', route.filterBy);
 
 // API  
 app.get('/api/stock', api.getAll); 
