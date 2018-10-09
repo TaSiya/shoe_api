@@ -35,7 +35,7 @@
         {{#each allBrands}}
             <option value="{{name}}">{{name}}</option>
         {{/each}}
-    </script> 
+    </script>
 
     <script type="text/x-template" class="dropdowsColoursTemplate">
         <option selected>Choose colour</option>
@@ -51,9 +51,22 @@
                 <td>{{shoe}}</td>
                 <td>{{shoecolour}}</td>
                 <td>{{size}}</td>
-                <td>{{quantity}}</td>
+                <td>{{stock}}</td>
                 <td>{{price}}</td>
+                <td><a href="/remove/{{item_id}}" class='text-danger'>X</a></td>
             </tr>
+        {{/each}}
+    </script>
+    
+    <script type="text/x-template" class="filterBrandTemplate">
+        {{#each allBrands}}
+            <a class="dropdown-item" href="/filter/{{name}}">{{name}}</a>
+        {{/each}}
+    </script>
+
+    <script type="text/x-template" class="filterColourTemplate">
+        {{#each allColours}}
+            <a class="dropdown-item" href="/filter/{{colourtag}}">{{colourtag}}</a>
         {{/each}}
     </script>
 
@@ -76,7 +89,8 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title " id="exampleModalLabel">Total: R <span class="totalDisplay"></span> </h5>
+                                <h5 class="modal-title " id="exampleModalLabel">Total: R <span class="totalDisplay"></span>
+                                </h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -181,7 +195,58 @@
                 <div class="collapse" id="filter">
                     <div class="card card-body">
                         <h2>Filtering the stock</h2>
-
+                        <!-- Example single danger button -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Brand
+                                    </button>
+                                    <div class="dropdown-menu filterBrandSection">
+                                        <!-- insert the filter for the brands -->
+        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Colour
+                                    </button>
+                                    <div class="dropdown-menu filterColourSection">
+                                        <!-- insert the filter for the brands -->
+        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Size
+                                    </button>
+                                    <div class="dropdown-menu filterSizeSection">
+                                        <!-- insert the filter for the brands -->
+        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Brand
+                                    </button>
+                                    <div class="dropdown-menu filterBrandSection">
+                                        <!-- insert the filter for the brands -->
+        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

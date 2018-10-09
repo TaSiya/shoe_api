@@ -30,11 +30,11 @@ module.exports = function (pool) {
     async function insertColour (colour) {
         await pool.query('insert into colours (colourTag) values ($1)', [colour])
     }
-    async function insertCart (shoe) {
-        await pool.query('insert into cart (shoe,shoeColour,price,size,quantity,item_id) values ($1,$2,$3,$4,$5,$6)',[shoe.name, shoe.colourtag, shoe.price, shoe.size, shoe.stock,shoe.id]);
+    async function insertCart (shoe,newStock) {
+        await pool.query('insert into cart (shoe,shoeColour,price,size,stock,item_id) values ($1,$2,$3,$4,$5,$6)',[shoe.name, shoe.colourtag, shoe.price, shoe.size, newStock,shoe.id]);
     }
     async function insertStock (shoe) {
-        await pool.query('insert into items (price, size, stock, brand_id, colour_id) values ($1,$2,$3,$4,$5)',[shoe.price, shoe.size, shoe.stock, shoe.brand_id, shoe.colour_id]);
+        await pool.query('insert into items (price, size, stock, brand_id, colour_id, old_price) values ($1,$2,$3,$4,$5,$6)',[shoe.price, shoe.size, shoe.stock, shoe.brand_id, shoe.colour_id,0]);
     }
 
     //********************************************************************************************************************************************** 
@@ -53,6 +53,10 @@ module.exports = function (pool) {
     }
     async function selectItem (id) {
         let result = await pool.query('select items.id, name, colourtag, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id where items.id =$1', [id]);
+        return result.rows;
+    }
+    async function selectInCart(id) {
+        let result = await pool.query('select * from cart where item_id =$1', [id]);
         return result.rows;
     }
 
@@ -84,9 +88,11 @@ module.exports = function (pool) {
     async function updateStock (oldStock, oldPrice, item) {
         await pool.query('update items set stock = $1, price = $2, old_price = $3 where size =$4 and brand_id = $5 and colour_id =$6',[oldStock,item.price,oldPrice,item.size,item.brand_id,item.colour_id]);
     }
-
     async function updateStockOnly (stock, id) {
         await pool.query('update items set stock = $1 where id = $2', [stock, id]);
+    }
+    async function updateCart (id, newStock) {
+        await pool.query('update cart set stock = $1 where item_id = $2', [newStock, id]);
     }
 
     //********************************************************************************************************************************************** 
@@ -123,8 +129,17 @@ module.exports = function (pool) {
     async function addToCart(id) {
         let itemData = await selectItem(id);
         let data = itemData[0];
+        let cartData = await selectInCart(id);
+        let newStock = 1 ;
+        if(cartData.length == 0) {
+            await insertCart(data, newStock);
+        }
+        else{
+            newStock = cartData[0].stock + 1;
+            await updateCart(id, newStock);
+        }
         await minusStock(data);
-        await insertCart(data);
+        
     }
     return {
         allBrands,
@@ -138,6 +153,7 @@ module.exports = function (pool) {
         insertStock,
         selectBrand,
         selectColour,
+        selectInCart,
         filterPrice,
         filterStock,
         filterSize,

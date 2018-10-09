@@ -42,9 +42,21 @@ module.exports = function (service) {
             res.send(err.stack);
         }
     }
+    async function cancelItem (req, res) {
+        try{
+            let id = req.params.id;
+            let idData = await service.selectInCart(id);
+            console.log(idData[0]);
+            
+            await service.insertStock(idData[0])
+        } catch(err) {
+            res.send(err.stack);
+        }
+    }
     return {
         client,
         addStock,
-        addCart
+        addCart,
+        cancelItem
     }
 }

@@ -3,20 +3,24 @@ const brandSection = document.querySelector('.brandSection');
 const colourSection = document.querySelector('.colourSection');
 const cartDisplay = document.querySelector('.cartDisplay');
 const totalDisplay = document.querySelector('.totalDisplay');
+const filterBrandSection = document.querySelector('.filterBrandSection');
+const filterColourSection = document.querySelector('.filterColourSection');
 const stockTemplate = document.querySelector('.stockTemplate').innerHTML; // Template for stock display
 const dropdowsBrandsTemplate = document.querySelector('.dropdowsBrandsTemplate').innerHTML;
 const dropdowsColoursTemplate = document.querySelector('.dropdowsColoursTemplate').innerHTML;
 const cartTemplate = document.querySelector('.cartTemplate').innerHTML;
+const filterBrandTemplate = document.querySelector('.filterBrandTemplate').innerHTML;
+const filterColourTemplate =document.querySelector('.filterColourTemplate').innerHTML;
 
 
 document.addEventListener("DOMContentLoaded", function () {
     const api = APIServices();
 
     let stockTemplateInstance = Handlebars.compile(stockTemplate);
-
-    
     let brandTemplateInstance = Handlebars.compile(dropdowsBrandsTemplate);
     let colourTemplateInstance = Handlebars.compile(dropdowsColoursTemplate);
+    let filterBrandCompiler = Handlebars.compile(filterBrandTemplate);
+    let filterColourCompiler = Handlebars.compile(filterColourTemplate);
 
     api.displayAll().then(function (result) {
         let response = result.data;
@@ -38,8 +42,16 @@ document.addEventListener("DOMContentLoaded", function () {
         let colourHTML = colourTemplateInstance({
             allColours : colourData
         });
+        let filterBrand = filterBrandCompiler({
+            allBrands : brandData
+        })
+        let filterColour = filterColourCompiler({
+            allColours : colourData
+        })
         brandSection.innerHTML = brandHTML;
         colourSection.innerHTML = colourHTML;
+        filterBrandSection.innerHTML = filterBrand;
+        filterColourSection.innerHTML = filterColour;
     });
 
     let cartCompiler = Handlebars.compile(cartTemplate);
@@ -54,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cartDisplay.innerHTML = totalCompiled;
         totalDisplay.innerHTML = total;
     });
+    
 
 });
 
