@@ -34,7 +34,7 @@
     <script type="text/x-template" class="dropdowsBrandsTemplate">
         <option selected>Choose shoe brand</option>
         {{#each allBrands}}
-            <option value="{{name}}">{{name}}</option>
+            <option class='brand' value="{{name}}">{{name}}</option>
         {{/each}}
     </script>
 
@@ -61,13 +61,13 @@
     
     <script type="text/x-template" class="filterBrandTemplate">
         {{#each allBrands}}
-            <a class="dropdown-item" href="/filter/brand/{{name}}">{{name}}</a>
+            <a class="dropdown-item" value="{{name}}" href="/filter/brand/{{name}}">{{name}}</a>
         {{/each}}
     </script>
 
     <script type="text/x-template" class="filterColourTemplate">
         {{#each allColours}}
-            <a class="dropdown-item" href="/filter/colour/{{colourtag}}">{{colourtag}}</a>
+            <a class="dropdown-item" value="{{colourtag}}" href="/filter/colour/{{colourtag}}">{{colourtag}}</a>
         {{/each}}
     </script>
 
@@ -148,7 +148,6 @@
                                     </div>
                                     <select class="custom-select brandSection" name='brandTag'>
                                         <!-- insert brand dropdown values -->
-                                        <option selected>Choose shoe brand</option>
                                     </select>
                                 </div>
                             </label>

@@ -1,3 +1,8 @@
+document.addEventListener("DOMContentLoaded", function () {
+    
+/* **********************************************************************************************************************
+# Referencing the dom elements
+*/
 const displayStock = document.querySelector('.insertStock'); //Display the stock
 const brandSection = document.querySelector('.brandSection');
 const colourSection = document.querySelector('.colourSection');
@@ -12,8 +17,10 @@ const cartTemplate = document.querySelector('.cartTemplate').innerHTML;
 const filterBrandTemplate = document.querySelector('.filterBrandTemplate').innerHTML;
 const filterColourTemplate =document.querySelector('.filterColourTemplate').innerHTML;
 
+/* **********************************************************************************************************************
+# Adding the events
+*/
 
-document.addEventListener("DOMContentLoaded", function () {
     const api = APIServices();
 
     let stockTemplateInstance = Handlebars.compile(stockTemplate);
@@ -31,7 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
         displayStock.innerHTML = productTableHTML;
     })
 
-    
+/* **********************************************************************************************************************
+# loading the default values
+*/
     api.dropdowns().then(function (result) {
         let response = result.data;
         let brandData = response.brands;
@@ -67,10 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
         totalDisplay.innerHTML = total;
     });
     
-
+    api.addStock().then( function (result) {
+        
+    })
 });
 
-
+/* **********************************************************************************************************************
+# Creating the function in the factory function 
+*/
 function APIServices () {
 
     function displayAll(){
@@ -82,18 +95,18 @@ function APIServices () {
     function cartData(){
         return axios.get('/api/cart');
     }
-    function allAPI() {
-        return axios.get('/api/shoes');
-    }
 
-    function allAPI(brand) {
-        return axios.get('/api/shoes');
+
+    function addStock(items) {
+        let brand = document.querySelector('.brandSection').value;
+        console.log(brand);
+        
     }
     
     return {
         displayAll,
         dropdowns,
         cartData,
-        allAPI
+        addStock
     }
 }
