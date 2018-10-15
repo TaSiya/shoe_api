@@ -11,7 +11,7 @@ module.exports = function (pool) {
         return result.rows;
     }
     async function allCart () {
-        let result = await pool.query('select * from cart');
+        let result = await pool.query('select * from cart order by price');
         return result.rows;
     }
     async function allStock () {
@@ -19,7 +19,7 @@ module.exports = function (pool) {
         return result.rows; 
     }
     async function allJoined () {
-        let result = await pool.query('select items.id, name, colourtag,old_price, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id');
+        let result = await pool.query('select items.id, name, colourtag,old_price, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id order by items.id');
         return result.rows;
     }
     //********************************************************************************************************************************************** 

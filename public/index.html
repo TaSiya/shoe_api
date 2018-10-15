@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+    <script type="text/x-template" class="stockTemplate">
+        {{#each stock}}
+                <div class="col mb-3 {{id}}">
+                    <div class="card" style="width: 14rem;">
+                        <img class="card-img-top" src="./img/{{name}}.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                            <p class="card-text">Size : {{size}}</p>
+                            <p class="card-text">Stock : {{stock}}</p>
+                            <div class="card-text foo {{colourtag}} w-100"></div>
+                            <p class="text-left ml-1"><del>R {{old_price}}</del><span class="text-right pl-5 ml-1">R
+                                    {{price}}</span></p>
+                            <a onclick="adding({{id}}, {{stock}})" class="btn btn-primary addBtn">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+        {{/each}}
+        </script>
+
+    <script type="text/x-template" class="dropdowsBrandsTemplate">
+        <option selected>Choose shoe brand</option>
+        {{#each allBrands}}
+            <option class='brand' value="{{name}}">{{name}}</option>
+        {{/each}}
+    </script>
+
+    <script type="text/x-template" class="dropdowsColoursTemplate">
+        <option selected>Choose colour</option>
+        {{#each allColours}}
+            <option value="{{colourtag}}">{{colourtag}}</option>
+        {{/each}}
+    </script>
+
+    <script type="text/x-template" class="cartTemplate">
+        {{total}}
+        {{#each cart}}
+            <tr>
+                <td>{{shoe}}</td>
+                <td>{{shoecolour}}</td>
+                <td>{{size}}</td>
+                <td>{{stock}}</td>
+                <td>{{price}}</td>
+                <td><a href="/remove/{{item_id}}" class='text-danger'>X</a></td>
+            </tr>
+        {{/each}}
+    </script>
+    
+    <script type="text/x-template" class="filterBrandTemplate">
+        {{#each allBrands}}
+            <a class="dropdown-item" value="{{name}}" href="/filter/brand/{{name}}">{{name}}</a>
+        {{/each}}
+    </script>
+
+    <script type="text/x-template" class="filterColourTemplate">
+        {{#each allColours}}
+            <a class="dropdown-item" value="{{colourtag}}" href="/filter/colour/{{colourtag}}">{{colourtag}}</a>
+        {{/each}}
+    </script>
+
+    <title>Shoe API</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Client-Side</h2>
+        <div class="row w-100">
+            <div class="col mt-5 text-center ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Cart
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title " id="exampleModalLabel">Total: R <span class="totalDisplay"></span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Brand</th>
+                                            <th scope="col">Colour</th>
+                                            <th scope="col">Size</th>
+                                            <th scope="col">Stock</th>
+                                            <th scope="col">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class='cartDisplay'>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <a type="button" class="btn btn-danger" data-dismiss="modal">Clear cart</a>
+                                <a type="button" class="btn btn-primary">Buy shoe(s)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row mt-5">
+                    <div class="col">
+                        <a class="btn btn-primary text-left" data-toggle="collapse" href="#adding" role="button"
+                            aria-expanded="false" aria-controls="collapseExample">
+                            Adding the stock
+                        </a>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary text-right" type="button" data-toggle="collapse" data-target="#filter"
+                            aria-expanded="false" aria-controls="collapseExample">
+                            Filtering the stock
+                        </button>
+                    </div>
+                </div>
+                <div class="collapse" id="adding">
+                    <div class="card card-body">
+                        <h2 class="text-secondary mb-4">Adding to the stock</h2>
+                        <form action="/add" method="post">
+                            <label for="brand">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="Brand">Brand</label>
+                                    </div>
+                                    <select class="custom-select brandSection" name='brandTag'>
+                                        <!-- insert brand dropdown values -->
+                                    </select>
+                                </div>
+                            </label>
+                            <label for="colours">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="Colour">Colour</label>
+                                    </div>
+                                    <select class="custom-select colourSection" name='colours'>
+                                        <!-- insert colour dropdowns values -->
+                                    </select>
+                                </div>
+                            </label>
+                            <label for="size">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="Size">Size</label>
+                                    </div>
+                                    <input type="number" name='size'>
+                                </div>
+                            </label>
+                            <label for="stock">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="Stock">Stock</label>
+                                    </div>
+                                    <input type="number" name='stock'>
+                                </div>
+                            </label>
+                            <label for="stock">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="price">Price</label>
+                                    </div>
+                                    <input type="number" step="0.01" name='price'>
+                                </div>
+
+                                <div class="w-100 text-center">
+                                    <button class="btn btn-primary" type="submit">add stock</button>
+                                </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="collapse" id="filter">
+                    <div class="card card-body">
+                        <h2>Filtering the stock</h2>
+                        <!-- Example single danger button -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Brand
+                                    </button>
+                                    <div class="dropdown-menu filterBrandSection">
+                                        <!-- insert the filter for the brands -->
+        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Colour
+                                    </button>
+                                    <div class="dropdown-menu filterColourSection">
+                                        <!-- insert the filter for the brands -->
+        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Size
+                                    </button>
+                                    <div class="dropdown-menu filterSizeSection">
+                                        <!-- insert the filter for the brands -->
+        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        Brand
+                                    </button>
+                                    <div class="dropdown-menu filterBrandSection">
+                                        <!-- insert the filter for the brands -->
+        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 insertStock">
+            <!-- Put stock here  -->
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

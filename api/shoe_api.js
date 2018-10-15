@@ -59,16 +59,36 @@ module.exports = function(service) {
                 price : price ,
                 stock : stocks 
             }
-            await service.insertStock(item);
-            res.json({status: 'success'});
+            let data = await service.addingStock(item);
+            res.json({status: 'success',data});
         } catch(err) {
+            res.json({
+                status : 'not found',
+                response : err.stack
+            })
+        }
+    }
+    async function addCart (req, res) {
+        try{
 
+            let id = req.params.id;
+           let isFound = await service.addToCart(id);
+           res.json({
+               status : 'success',
+               isFound
+           })
+        } catch(err) {
+            res.json({
+                status : 'not found',
+                response : err.stack
+            })
         }
     }
     return {
         getAll,
         dropDowns,
         cartSection,
-        addStock
+        addStock,
+        addCart
     }
 }

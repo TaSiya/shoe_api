@@ -35,6 +35,8 @@ module.exports = function (service) {
     async function addCart (req, res) {
         try{
             let id = req.params.id;
+            console.log(id);
+            
             await service.addToCart(id);
             res.redirect('/');
         } catch(err) {
