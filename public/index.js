@@ -42,39 +42,46 @@ document.addEventListener("DOMContentLoaded", function () {
 function adding(id, stock) {
     api.addingCart(id).then(function (result) {
         let response = result.data;
-        if(stock == 1) {
-            let itemSection = document.querySelector('.'+id).remove();
-        } else {
+        console.log(stock);
 
-        }
         dom.reOrder();
     });
 }
 
 function addNewStock() {
-        name = brandSection.value,
+    name = brandSection.value,
         colourtag = colourSection.value,
-        size  = sizeSection.value,
-        stock  = stockSection.value,
+        size = sizeSection.value,
+        stock = stockSection.value,
         price = priceSection.value
-    api.addNewStock(name, colourtag, size, stock, price).then( function (result) {
+    api.addNewStock(name, colourtag, size, stock, price).then(function (result) {
         let response = result.data;
         let found = response.data;
-        if(found){
-            dom.reOrder();
-        }
-        
+        dom.reOrder();
+
     });
 }
 
 function deleteCart() {
-    api.removeCart().then( function (result) {
+    api.removeCart().then(function (result) {
         let response = result.data;
         let status = response.status;
-        if (status === 'success'){
+        if (status === 'success') {
             dom.reOrder();
         }
-         
+
+    })
+}
+
+function deleteStock() {
+    deleteCart();
+    api.removeStock().then(function (result) {
+        let response = result.data;
+        let status = response.status;
+        if (status === 'success') {
+            dom.reOrder();
+        }
+
     })
 }
 
@@ -135,7 +142,7 @@ function DomFactory() {
         });
     }
 
-    
+
     return {
         reOrder
     }
@@ -166,11 +173,21 @@ function APIServices() {
     }
 
     function addNewStock(name, colourtag, size, stock, price) {
-        return axios.post('/api/add', {name, colourtag, size, stock, price})
+        return axios.post('/api/add', {
+            name,
+            colourtag,
+            size,
+            stock,
+            price
+        })
     }
 
     function removeCart() {
         return axios.get('/api/clearCart');
+    }
+
+    function removeStock() {
+        return axios.get('/api/clearStock');
     }
     return {
         displayAll,
@@ -178,6 +195,7 @@ function APIServices() {
         cartData,
         addingCart,
         addNewStock,
-        removeCart
+        removeCart,
+        removeStock
     }
 }

@@ -100,6 +100,20 @@ module.exports = function (pool) {
     async function removeStock(id) {
         await pool.query('delete from items where id = $1', [id]);
     }
+    async function deleteinCart(id) {
+        await pool.query('delete from cart where item_id = $1', [id]);
+    }
+    async function removeInCart(id) {
+        let itemData = await selectInCart(id);
+        
+        if (itemData[0].stock == 1){
+            await updateStockOnly(itemData[0].stock, id);
+            await deleteinCart(id);
+        } else {
+            
+        }
+        await pool.query('update cart set stock')
+    }
 
     //********************************************************************************************************************************************** 
     //Logic
@@ -119,7 +133,11 @@ module.exports = function (pool) {
     }
     async function minusStock(item) {
         let newStock = item.stock - 1 ;
-        if(newStock === 0) {
+        console.log(newStock + " new stock");
+        
+        if(newStock == 0) {
+            console.log('here to remove: '+item.id);
+            
             await removeStock(item.id);
         }
         else{
@@ -129,6 +147,7 @@ module.exports = function (pool) {
     async function addToCart(id) {
         let itemData = await selectItem(id);
         let data = itemData[0];
+        console.log("data after adding: "+ data.stock);
         let cartData = await selectInCart(id);
         let newStock = 1 ;
         if(cartData.length == 0) {
@@ -138,6 +157,8 @@ module.exports = function (pool) {
             newStock = cartData[0].stock + 1;
             await updateCart(id, newStock);
         }
+        
+        
         await minusStock(data);
         
     }
@@ -170,7 +191,10 @@ module.exports = function (pool) {
         selectItem,
         addingStock,
         addToCart,
-        removeAllCart
+        removeAllCart,
+        removeAllStock,
+        removeStock,
+        removeInCart
 
     }
 }

@@ -75,7 +75,15 @@ module.exports = function (service) {
         try {
 
             let id = req.params.id;
-            let isFound = await service.addToCart(id);
+            let idData = await service.selectItem(id);
+            let isFound ;
+            if(idData[0].stock == 1){
+                isFound = await service.addToCart(id);
+                await service.removeStock(id);
+            }
+            else{
+                isFound = await service.addToCart(id);
+            }
             res.json({
                 status: 'success',
                 isFound
@@ -100,12 +108,38 @@ module.exports = function (service) {
             })
         }
     }
+    async function deleteStock(req, res) {
+        try {
+            await service.removeAllStock();
+            res.json({
+                status: 'success'
+            });
+        } catch (err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
+    async function removeItemCart(req, res) {
+        try{
+            let id = req.params.id;
+            
+        } catch(err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
     return {
         getAll,
         dropDowns,
         cartSection,
         addStock,
         addCart,
-        deleteCart
+        deleteCart,
+        deleteStock,
+        removeItemCart
     }
 }

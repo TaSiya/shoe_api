@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
     <script type="text/x-template" class="stockTemplate">
         {{#each stock}}
-                <div class="col mb-3 {{id}}">
+                <div class="col mb-3 id{{id}}">
                     <div class="card" style="width: 14rem;">
                         <img class="card-img-top" src="./img/{{name}}.jpg" alt="Card image cap">
                         <div class="card-body">
@@ -250,6 +250,11 @@
         </div>
         <div class="row mt-5 insertStock">
             <!-- Put stock here  -->
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <a onclick="deleteStock()" type="button" class="btn btn-danger">Clear everything</a>
+            </div>
         </div>
     </div>
 
