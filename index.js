@@ -52,6 +52,7 @@ app.get('/api/cart', api.cartSection);
 
 app.post('/api/add', api.addStock);
 app.get('/api/stock/:id', api.addCart)
+app.get('/api/clearCart', api.deleteCart);
 
 
 const PORT = process.env.PORT || 2018;

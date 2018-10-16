@@ -141,6 +141,12 @@ module.exports = function (pool) {
         await minusStock(data);
         
     }
+    async function removeAllCart(){
+        await pool.query('delete from cart');
+    }
+    async function removeAllStock() {
+        await pool.query('delete from items')
+    }
     return {
         allBrands,
         allColours,
@@ -163,7 +169,8 @@ module.exports = function (pool) {
         selectStock,
         selectItem,
         addingStock,
-        addToCart
+        addToCart,
+        removeAllCart
 
     }
 }

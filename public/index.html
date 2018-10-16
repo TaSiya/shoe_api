@@ -114,8 +114,7 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <a type="button" class="btn btn-danger" data-dismiss="modal">Clear cart</a>
-                                <a type="button" class="btn btn-primary">Buy shoe(s)</a>
+                                <a onclick="deleteCart()" type="button" class="btn btn-danger">Clear cart</a>
                             </div>
                         </div>
                     </div>
@@ -141,7 +140,6 @@
                 <div class="collapse" id="adding">
                     <div class="card card-body">
                         <h2 class="text-secondary mb-4">Adding to the stock</h2>
-                        <form action="/add" method="post">
                             <label for="brand">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -167,7 +165,7 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="Size">Size</label>
                                     </div>
-                                    <input type="number" name='size'>
+                                    <input type="number" name='size' class="sizeSection">
                                 </div>
                             </label>
                             <label for="stock">
@@ -175,7 +173,7 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="Stock">Stock</label>
                                     </div>
-                                    <input type="number" name='stock'>
+                                    <input type="number" name='stock' class="stockSection">
                                 </div>
                             </label>
                             <label for="stock">
@@ -183,14 +181,12 @@
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="price">Price</label>
                                     </div>
-                                    <input type="number" step="0.01" name='price'>
+                                    <input type="number" step="0.01" name='price' class="priceSection">
                                 </div>
 
                                 <div class="w-100 text-center">
-                                    <button class="btn btn-primary" type="submit">add stock</button>
+                                    <button onclick="addNewStock()" class="btn btn-primary" >add stock</button>
                                 </div>
-
-                        </form>
                     </div>
                 </div>
                 <div class="collapse" id="filter">

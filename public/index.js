@@ -6,8 +6,15 @@ const dom = DomFactory();
 */
 
 const displayStock = document.querySelector('.insertStock'); //Display the stock
+/* **********************************************************************************************************************
+# Adding section values
+*/
 const brandSection = document.querySelector('.brandSection');
 const colourSection = document.querySelector('.colourSection');
+const sizeSection = document.querySelector('.sizeSection');
+const stockSection = document.querySelector('.stockSection');
+const priceSection = document.querySelector('.priceSection');
+
 const cartDisplay = document.querySelector('.cartDisplay');
 const totalDisplay = document.querySelector('.totalDisplay');
 const filterBrandSection = document.querySelector('.filterBrandSection');
@@ -42,6 +49,33 @@ function adding(id, stock) {
         }
         dom.reOrder();
     });
+}
+
+function addNewStock() {
+        name = brandSection.value,
+        colourtag = colourSection.value,
+        size  = sizeSection.value,
+        stock  = stockSection.value,
+        price = priceSection.value
+    api.addNewStock(name, colourtag, size, stock, price).then( function (result) {
+        let response = result.data;
+        let found = response.data;
+        if(found){
+            dom.reOrder();
+        }
+        
+    });
+}
+
+function deleteCart() {
+    api.removeCart().then( function (result) {
+        let response = result.data;
+        let status = response.status;
+        if (status === 'success'){
+            dom.reOrder();
+        }
+         
+    })
 }
 
 function DomFactory() {
@@ -100,6 +134,8 @@ function DomFactory() {
             filterColourSection.innerHTML = filterColour;
         });
     }
+
+    
     return {
         reOrder
     }
@@ -129,10 +165,19 @@ function APIServices() {
         return axios.get('./api/stock/' + id)
     }
 
+    function addNewStock(name, colourtag, size, stock, price) {
+        return axios.post('/api/add', {name, colourtag, size, stock, price})
+    }
+
+    function removeCart() {
+        return axios.get('/api/clearCart');
+    }
     return {
         displayAll,
         dropdowns,
         cartData,
-        addingCart
+        addingCart,
+        addNewStock,
+        removeCart
     }
 }

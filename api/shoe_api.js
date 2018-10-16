@@ -1,86 +1,102 @@
-module.exports = function(service) {
+module.exports = function (service) {
     async function getAll(req, res) {
-        try{
+        try {
             let data = await service.allJoined();
             res.json({
-                status : 'success',
-                result : data
+                status: 'success',
+                result: data
             })
-        } catch(err) {
+        } catch (err) {
             res.send(err);
         }
-    } 
-    async function dropDowns (req, res) {
-        try{
+    }
+    async function dropDowns(req, res) {
+        try {
             let brands = await service.allBrands();
             let colours = await service.allColours();
             res.json({
-                status : 'success',
+                status: 'success',
                 brands,
                 colours
             })
-        } catch(err) {
+        } catch (err) {
 
         }
     }
     async function cartSection(req, res) {
-        try{
+        try {
             let cart = await service.allCart();
-            let total = 0 ;
-            for(let i = 0 ; i < cart.length ; i ++) {
-                total = total + cart[i].price * cart[i].quantity;
+            let total = 0;
+            for (let i = 0; i < cart.length; i++) {
+                total = total + cart[i].price * cart[i].stock;
             }
 
             res.json({
-                status : 'success',
+                status: 'success',
                 total,
                 cart
             })
-        } catch(err) {
+        } catch (err) {
             res.json({
-                status : 'not found',
-                response : err.stack
+                status: 'not found',
+                response: err.stack
             })
         }
     }
-    async function addStock (req, res) {
-        try{
-            let name = req.body.brandTag;
-            let colourtag = req.body.colours;
+    async function addStock(req, res) {
+        try {
+            let name = req.body.name;
+            let colourtag = req.body.colourtag;
             let size = parseInt(req.body.size);
             let stocks = parseInt(req.body.stock);
             let price = parseFloat(req.body.price);
             let brand = await service.selectBrand(name);
             let colour = await service.selectColour(colourtag);
             let item = {
-                brand_id :  brand[0].id,
-                colour_id :  colour[0].id ,
-                size : size,
-                price : price ,
-                stock : stocks 
+                brand_id: brand[0].id,
+                colour_id: colour[0].id,
+                size: size,
+                price: price,
+                stock: stocks
             }
             let data = await service.addingStock(item);
-            res.json({status: 'success',data});
-        } catch(err) {
             res.json({
-                status : 'not found',
-                response : err.stack
+                status: 'success',
+                data
+            });
+        } catch (err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
             })
         }
     }
-    async function addCart (req, res) {
-        try{
+    async function addCart(req, res) {
+        try {
 
             let id = req.params.id;
-           let isFound = await service.addToCart(id);
-           res.json({
-               status : 'success',
-               isFound
-           })
-        } catch(err) {
+            let isFound = await service.addToCart(id);
             res.json({
-                status : 'not found',
-                response : err.stack
+                status: 'success',
+                isFound
+            })
+        } catch (err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
+    async function deleteCart(req, res) {
+        try {
+            await service.removeAllCart();
+            res.json({
+                status: 'success'
+            });
+        } catch (err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
             })
         }
     }
@@ -89,6 +105,7 @@ module.exports = function(service) {
         dropDowns,
         cartSection,
         addStock,
-        addCart
+        addCart,
+        deleteCart
     }
 }
