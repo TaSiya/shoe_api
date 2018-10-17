@@ -42,7 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
 function adding(id, stock) {
     api.addingCart(id).then(function (result) {
         let response = result.data;
-        console.log(stock);
+        if(stock == 1){
+            document.querySelector('.id'+id).classList.add('hidden');
+        } else {
+            document.querySelector('.id'+id).classList.remove('hidden');
+        }
 
         dom.reOrder();
     });
@@ -58,7 +62,6 @@ function addNewStock() {
         let response = result.data;
         let found = response.data;
         dom.reOrder();
-
     });
 }
 
@@ -87,9 +90,11 @@ function deleteStock() {
 
 function DomFactory() {
     function reOrder() {
+        clearFields();
         reOrderStock();
         reOrderCart();
         reOrderDropDowns();
+
     }
 
     function reOrderStock() {
@@ -142,6 +147,12 @@ function DomFactory() {
         });
     }
 
+    function clearFields(){
+            sizeSection.value = '';
+            stockSection.value = '';
+            priceSection.value = '';
+
+    }
 
     return {
         reOrder

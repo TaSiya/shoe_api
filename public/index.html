@@ -125,7 +125,7 @@
             <div class="col">
                 <div class="row mt-5">
                     <div class="col">
-                        <a class="btn btn-primary text-left" data-toggle="collapse" href="#adding" role="button"
+                        <a class="btn btn-primary text-left" data-toggle="collapse" data-target="#adding" href="#adding" role="button"
                             aria-expanded="false" aria-controls="collapseExample">
                             Adding the stock
                         </a>
@@ -185,7 +185,7 @@
                                 </div>
 
                                 <div class="w-100 text-center">
-                                    <button onclick="addNewStock()" class="btn btn-primary" >add stock</button>
+                                    <button onclick="addNewStock()" data-toggle="collapse" data-target="#adding" aria-expanded="false" aria-controls="collapseExample" class="btn btn-primary" >add stock</button>
                                 </div>
                     </div>
                 </div>
