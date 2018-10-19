@@ -132,6 +132,53 @@ module.exports = function (service) {
             })
         }
     }
+    async function filterByBrand( req, res) {
+        try{
+            let brand = req.params.brand;
+            let filtered = await service.filterName(brand);
+            res.json({
+                status : 'success',
+                filtered
+            })
+        } catch(err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
+    async function filterByColour(req, res) {
+        try{
+            let colour = req.params.colour;
+            let filtered = await service.filterColour(colour);
+
+            res.json({
+                status : 'success',
+                filtered
+            })
+        } catch(err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
+    async function filterBySize(req, res) {
+        try{
+            let size = req.params.size;
+            let filtered = await service.filterSize(size);
+
+            res.json({
+                status : 'success',
+                filtered
+            })
+        } catch(err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
     return {
         getAll,
         dropDowns,
@@ -140,6 +187,9 @@ module.exports = function (service) {
         addCart,
         deleteCart,
         deleteStock,
-        removeItemCart
+        removeItemCart,
+        filterByBrand,
+        filterByColour,
+        filterBySize
     }
 }

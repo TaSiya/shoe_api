@@ -61,13 +61,13 @@
     
     <script type="text/x-template" class="filterBrandTemplate">
         {{#each allBrands}}
-            <a class="dropdown-item" value="{{name}}" href="/filter/brand/{{name}}">{{name}}</a>
+            <a class="dropdown-item " onclick="filteringBrand('{{name}}')" value="{{name}}" >{{name}}</a>
         {{/each}}
     </script>
 
-    <script type="text/x-template" class="filterColourTemplate">
+    <script type="text/x-template brandBtn" class="filterColourTemplate">
         {{#each allColours}}
-            <a class="dropdown-item" value="{{colourtag}}" href="/filter/colour/{{colourtag}}">{{colourtag}}</a>
+            <a class="dropdown-item"  value="{{colourtag}}" onclick="filteringColour('{{colourtag}}')">{{colourtag}}</a>
         {{/each}}
     </script>
 
@@ -246,6 +246,14 @@
                         
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                    <a class="btn btn-warning mt-5" onclick="clearFilter()">Clear Filter</a>
+            </div>
+            <div class="col">
+                <h2 class="text-success displayMessage"></h2>
             </div>
         </div>
         <div class="row mt-5 insertStock">

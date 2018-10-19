@@ -20,6 +20,8 @@ const totalDisplay = document.querySelector('.totalDisplay');
 const filterBrandSection = document.querySelector('.filterBrandSection');
 const filterColourSection = document.querySelector('.filterColourSection');
 
+const displayMessage = document.querySelector('.displayMessage');
+
 const stockTemplate = document.querySelector('.stockTemplate').innerHTML; // Template for stock display
 const dropdowsBrandsTemplate = document.querySelector('.dropdowsBrandsTemplate').innerHTML;
 const dropdowsColoursTemplate = document.querySelector('.dropdowsColoursTemplate').innerHTML;
@@ -42,10 +44,10 @@ document.addEventListener("DOMContentLoaded", function () {
 function adding(id, stock) {
     api.addingCart(id).then(function (result) {
         let response = result.data;
-        if(stock == 1){
-            document.querySelector('.id'+id).classList.add('hidden');
+        if (stock == 1) {
+            document.querySelector('.id' + id).classList.add('hidden');
         } else {
-            document.querySelector('.id'+id).classList.remove('hidden');
+            document.querySelector('.id' + id).classList.remove('hidden');
         }
 
         dom.reOrder();
@@ -86,6 +88,44 @@ function deleteStock() {
         }
 
     })
+}
+
+function filteringBrand(brand) {
+    api.filterBrand(brand).then(function (result) {
+        
+        displayMessage.innerHTML = 'Filtering using brand name: '+brand;
+        let response = result.data;
+        let data = response.filtered;
+        console.log(data, ' looolz');
+        
+        let productTableHTML = stockTemplateInstance({
+            stock: data
+        });
+        displayStock.innerHTML = productTableHTML;
+    })
+}
+
+function filteringColour(colour) {
+    api.filterColour(colour).then(function (result) {
+        
+        displayMessage.innerHTML = 'Filtering using colour: '+colour;
+        let response = result.data;
+        let data = response.filtered;
+        console.log(data, ' looolz');
+        
+        let productTableHTML = stockTemplateInstance({
+            stock: data
+        });
+        displayStock.innerHTML = productTableHTML;
+    })
+}
+
+function filteringSize(size) {
+    api.filterSize
+}
+
+function clearFilter() {
+    dom.reOrder();
 }
 
 function DomFactory() {
@@ -147,12 +187,13 @@ function DomFactory() {
         });
     }
 
-    function clearFields(){
-            sizeSection.value = '';
-            stockSection.value = '';
-            priceSection.value = '';
+    function clearFields() {
+        sizeSection.value = '';
+        stockSection.value = '';
+        priceSection.value = '';
 
     }
+
 
     return {
         reOrder
@@ -184,7 +225,7 @@ function APIServices() {
     }
 
     function addNewStock(name, colourtag, size, stock, price) {
-        return axios.post('/api/add', {
+        return axios.post('./api/add', {
             name,
             colourtag,
             size,
@@ -194,11 +235,21 @@ function APIServices() {
     }
 
     function removeCart() {
-        return axios.get('/api/clearCart');
+        return axios.get('./api/clearCart');
     }
 
     function removeStock() {
-        return axios.get('/api/clearStock');
+        return axios.get('./api/clearStock');
+    }
+
+    function filterBrand(brand) {
+        return axios.get('./api/filter/brand/' + brand);
+    }
+    function filterColour(colour) {
+        return axios.get('./api/filter/colour/' + colour);
+    }
+    function filterSize(size){
+        return axios.get('./api/filter/size/:size');
     }
     return {
         displayAll,
@@ -207,6 +258,9 @@ function APIServices() {
         addingCart,
         addNewStock,
         removeCart,
-        removeStock
+        removeStock,
+        filterBrand,
+        filterColour,
+        filterSize
     }
 }
