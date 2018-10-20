@@ -61,25 +61,29 @@
     
     <script type="text/x-template" class="filterBrandTemplate">
         {{#each allBrands}}
-            <a class="dropdown-item " onclick="filteringBrand('{{name}}')" value="{{name}}" >{{name}}</a>
+            <a class="dropdown-item " onclick="filteringBrand('{{name}}')" value="{{name}}" data-toggle="collapse" data-target="#filter"
+            aria-expanded="false" aria-controls="collapseExample">{{name}}</a>
         {{/each}}
     </script>
 
     <script type="text/x-template brandBtn" class="filterColourTemplate">
         {{#each allColours}}
-            <a class="dropdown-item"  value="{{colourtag}}" onclick="filteringColour('{{colourtag}}')">{{colourtag}}</a>
+            <a class="dropdown-item"  value="{{colourtag}}" onclick="filteringColour('{{colourtag}}')" data-toggle="collapse" data-target="#filter"
+            aria-expanded="false" aria-controls="collapseExample">{{colourtag}}</a>
         {{/each}}
     </script>
 
     <script type="text/x-template brandBtn" class="filterSizeTemplate">
         {{#each allSize}}
-            <a class="dropdown-item"  value="{{size}}" onclick="filteringSize({{size}})">{{size}}</a>
+            <a class="dropdown-item"  value="{{size}}" onclick="filteringSize({{size}})" data-toggle="collapse" data-target="#filter"
+            aria-expanded="false" aria-controls="collapseExample">{{size}}</a>
         {{/each}}
     </script>
 
     <script type="text/x-template brandBtn" class="filterStockTemplate">
         {{#each allStock}}
-            <a class="dropdown-item"  value="{{stock}}" onclick="filteringStock({{stock}})">{{stock}}</a>
+            <a class="dropdown-item"  value="{{stock}}" onclick="filteringStock({{stock}})" data-toggle="collapse" data-target="#filter"
+            aria-expanded="false" aria-controls="collapseExample">{{stock}}</a>
         {{/each}}
     </script>
 

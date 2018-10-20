@@ -153,6 +153,7 @@ function filteringStock(stock) {
 
 function clearFilter() {
     dom.reOrder();
+    displayMessage.innerHTML = '';
 }
 
 function DomFactory() {
