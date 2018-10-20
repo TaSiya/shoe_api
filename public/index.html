@@ -71,6 +71,12 @@
         {{/each}}
     </script>
 
+    <script type="text/x-template brandBtn" class="filterSizeTemplate">
+        {{#each allSize}}
+            <a class="dropdown-item"  value="{{size}}" onclick="filteringSize({{size}})">{{size}}</a>
+        {{/each}}
+    </script>
+
     <title>Shoe API</title>
 </head>
 
@@ -166,6 +172,7 @@
                                         <label class="input-group-text" for="Size">Size</label>
                                     </div>
                                     <input type="number" name='size' class="sizeSection">
+                                    
                                 </div>
                             </label>
                             <label for="stock">
@@ -226,7 +233,7 @@
                                     </button>
                                     <div class="dropdown-menu filterSizeSection">
                                         <!-- insert the filter for the brands -->
-        
+                                        
                                     </div>
                                 </div>
                             </div>

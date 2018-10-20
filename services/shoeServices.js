@@ -18,6 +18,10 @@ module.exports = function (pool) {
         let result = await pool.query('select * from items');
         return result.rows; 
     }
+    async function allStockSize () {
+        let result = await pool.query('select size from items');
+        return result.rows; 
+    }
     async function allJoined () {
         let result = await pool.query('select items.id, name, colourtag,old_price, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id order by items.id');
         return result.rows;
@@ -173,6 +177,7 @@ module.exports = function (pool) {
         allColours,
         allCart,
         allStock,
+        allStockSize,
         allJoined,
         insertBrand,
         insertColour,

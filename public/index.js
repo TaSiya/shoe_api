@@ -19,6 +19,8 @@ const cartDisplay = document.querySelector('.cartDisplay');
 const totalDisplay = document.querySelector('.totalDisplay');
 const filterBrandSection = document.querySelector('.filterBrandSection');
 const filterColourSection = document.querySelector('.filterColourSection');
+const filterSizeSection = document.querySelector('.filterSizeSection');
+
 
 const displayMessage = document.querySelector('.displayMessage');
 
@@ -28,12 +30,14 @@ const dropdowsColoursTemplate = document.querySelector('.dropdowsColoursTemplate
 const cartTemplate = document.querySelector('.cartTemplate').innerHTML;
 const filterBrandTemplate = document.querySelector('.filterBrandTemplate').innerHTML;
 const filterColourTemplate = document.querySelector('.filterColourTemplate').innerHTML;
+const filterSizeTemplate = document.querySelector('.filterSizeTemplate').innerHTML;
 
 let stockTemplateInstance = Handlebars.compile(stockTemplate);
 let brandTemplateInstance = Handlebars.compile(dropdowsBrandsTemplate);
 let colourTemplateInstance = Handlebars.compile(dropdowsColoursTemplate);
 let filterBrandCompiler = Handlebars.compile(filterBrandTemplate);
 let filterColourCompiler = Handlebars.compile(filterColourTemplate);
+let filterSizeCompiler = Handlebars.compile(filterSizeTemplate);
 let cartCompiler = Handlebars.compile(cartTemplate);
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -96,7 +100,6 @@ function filteringBrand(brand) {
         displayMessage.innerHTML = 'Filtering using brand name: '+brand;
         let response = result.data;
         let data = response.filtered;
-        console.log(data, ' looolz');
         
         let productTableHTML = stockTemplateInstance({
             stock: data
@@ -111,7 +114,6 @@ function filteringColour(colour) {
         displayMessage.innerHTML = 'Filtering using colour: '+colour;
         let response = result.data;
         let data = response.filtered;
-        console.log(data, ' looolz');
         
         let productTableHTML = stockTemplateInstance({
             stock: data
@@ -121,7 +123,18 @@ function filteringColour(colour) {
 }
 
 function filteringSize(size) {
-    api.filterSize
+    api.filterSize(size).then(result => {
+        displayMessage.innerHTML = 'Filtering using size: '+size;
+        let response = result.data;
+        let data = response.filtered;
+        console.log(data, ' looolz');
+        
+        let productTableHTML = stockTemplateInstance({
+            stock: data
+        });
+        displayStock.innerHTML = productTableHTML;
+            }
+        );
 }
 
 function clearFilter() {
@@ -166,8 +179,11 @@ function DomFactory() {
     function reOrderDropDowns() {
         api.dropdowns().then(function (result) {
             let response = result.data;
+            
+            
             let brandData = response.brands;
             let colourData = response.colours;
+            let sizeData = response.size;
             let brandHTML = brandTemplateInstance({
                 allBrands: brandData
             });
@@ -180,10 +196,15 @@ function DomFactory() {
             let filterColour = filterColourCompiler({
                 allColours: colourData
             })
+            let filterSize = filterSizeCompiler({
+                allSize : sizeData
+            })
             brandSection.innerHTML = brandHTML;
             colourSection.innerHTML = colourHTML;
             filterBrandSection.innerHTML = filterBrand;
             filterColourSection.innerHTML = filterColour;
+            filterSizeSection.innerHTML = filterSize;
+            
         });
     }
 

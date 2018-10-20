@@ -14,10 +14,12 @@ module.exports = function (service) {
         try {
             let brands = await service.allBrands();
             let colours = await service.allColours();
+            let size = await service.allStockSize();
             res.json({
                 status: 'success',
                 brands,
-                colours
+                colours,
+                size
             })
         } catch (err) {
 
