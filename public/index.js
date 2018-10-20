@@ -127,8 +127,6 @@ function filteringSize(size) {
         displayMessage.innerHTML = 'Filtering using size: '+size;
         let response = result.data;
         let data = response.filtered;
-        console.log(data, ' looolz');
-        
         let productTableHTML = stockTemplateInstance({
             stock: data
         });
@@ -270,7 +268,7 @@ function APIServices() {
         return axios.get('./api/filter/colour/' + colour);
     }
     function filterSize(size){
-        return axios.get('./api/filter/size/:size');
+        return axios.get('./api/filter/size/'+size);
     }
     return {
         displayAll,

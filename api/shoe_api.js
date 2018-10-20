@@ -167,9 +167,10 @@ module.exports = function (service) {
     }
     async function filterBySize(req, res) {
         try{
-            let size = req.params.size;
+            let size = parseInt(req.params.size);
             let filtered = await service.filterSize(size);
-
+            console.log(filtered);
+            
             res.json({
                 status : 'success',
                 filtered
