@@ -77,6 +77,12 @@
         {{/each}}
     </script>
 
+    <script type="text/x-template brandBtn" class="filterStockTemplate">
+        {{#each allStock}}
+            <a class="dropdown-item"  value="{{stock}}" onclick="filteringStock({{stock}})">{{stock}}</a>
+        {{/each}}
+    </script>
+
     <title>Shoe API</title>
 </head>
 
@@ -241,9 +247,9 @@
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
-                                        Brand
+                                        Stock
                                     </button>
-                                    <div class="dropdown-menu filterBrandSection">
+                                    <div class="dropdown-menu filterStockSection">
                                         <!-- insert the filter for the brands -->
         
                                     </div>

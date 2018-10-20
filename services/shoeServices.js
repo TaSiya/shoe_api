@@ -19,7 +19,11 @@ module.exports = function (pool) {
         return result.rows; 
     }
     async function allStockSize () {
-        let result = await pool.query('select size from items');
+        let result = await pool.query('select Distinct(size) from items');
+        return result.rows; 
+    }
+    async function allStockStock () {
+        let result = await pool.query('select Distinct(stock) from items');
         return result.rows; 
     }
     async function allJoined () {
@@ -178,6 +182,7 @@ module.exports = function (pool) {
         allCart,
         allStock,
         allStockSize,
+        allStockStock,
         allJoined,
         insertBrand,
         insertColour,

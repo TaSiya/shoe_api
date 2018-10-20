@@ -15,11 +15,13 @@ module.exports = function (service) {
             let brands = await service.allBrands();
             let colours = await service.allColours();
             let size = await service.allStockSize();
+            let stock = await service.allStockStock();
             res.json({
                 status: 'success',
                 brands,
                 colours,
-                size
+                size,
+                stock
             })
         } catch (err) {
 
@@ -182,6 +184,21 @@ module.exports = function (service) {
             })
         }
     }
+    async function filterByStock(req, res) {
+        try{
+            let stock = parseInt(req.params.stock);
+            let filtered = await service.filterStock(stock);
+            res.json({
+                status : 'success',
+                filtered
+            })
+        } catch(err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
     return {
         getAll,
         dropDowns,
@@ -193,6 +210,7 @@ module.exports = function (service) {
         removeItemCart,
         filterByBrand,
         filterByColour,
-        filterBySize
+        filterBySize,
+        filterByStock
     }
 }
