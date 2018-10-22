@@ -25,6 +25,7 @@ const filterStockSection = document.querySelector('.filterStockSection');
 
 const displayMessage = document.querySelector('.displayMessage');
 
+
 const stockTemplate = document.querySelector('.stockTemplate').innerHTML; // Template for stock display
 const dropdowsBrandsTemplate = document.querySelector('.dropdowsBrandsTemplate').innerHTML;
 const dropdowsColoursTemplate = document.querySelector('.dropdowsColoursTemplate').innerHTML;
@@ -99,7 +100,7 @@ function deleteStock() {
 
 function filteringBrand(brand) {
     api.filterBrand(brand).then(function (result) {
-        
+        displayMessage.classList.add('alert-success');
         displayMessage.innerHTML = 'Filtering using brand name: '+brand;
         let response = result.data;
         let data = response.filtered;
@@ -113,7 +114,7 @@ function filteringBrand(brand) {
 
 function filteringColour(colour) {
     api.filterColour(colour).then(function (result) {
-        
+        displayMessage.classList.add('alert-success');
         displayMessage.innerHTML = 'Filtering using colour: '+colour;
         let response = result.data;
         let data = response.filtered;
@@ -127,6 +128,7 @@ function filteringColour(colour) {
 
 function filteringSize(size) {
     api.filterSize(size).then(result => {
+        displayMessage.classList.add('alert-success');
         displayMessage.innerHTML = 'Filtering using size: '+size;
         let response = result.data;
         let data = response.filtered;
@@ -140,6 +142,7 @@ function filteringSize(size) {
 
 function filteringStock(stock) {
     api.filterStock(stock).then(result => {
+        displayMessage.classList.add('alert-success');
         displayMessage.innerHTML = 'Filtering using stock: '+stock;
         let response = result.data;
         let data = response.filtered;
@@ -154,7 +157,9 @@ function filteringStock(stock) {
 function clearFilter() {
     dom.reOrder();
     displayMessage.innerHTML = '';
+    displayMessage.classList.remove('alert-success')
 }
+
 
 function DomFactory() {
     function reOrder() {
