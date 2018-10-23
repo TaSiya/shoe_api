@@ -5,6 +5,7 @@ module.exports = function (app, pool) {
     const service = ShoeServices(pool);
     const api = ShoeApi(service);
     // API  
+    app.get('/api/', api.allRoutes);
     app.get('/api/stock', api.getAll);
     app.get('/api/default', api.dropDowns);
     app.get('/api/cart', api.cartSection);

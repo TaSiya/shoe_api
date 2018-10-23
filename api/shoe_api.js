@@ -1,4 +1,27 @@
 module.exports = function (service) {
+    async function allRoutes(req, res) {
+        try{
+            let data = await service.allJoined();
+            let brands = await service.allBrands();
+            let colours = await service.allColours();
+            let size = await service.allStockSize();
+            let stock = await service.allStockStock();
+            let cart = await service.allCart();
+            let total = 0;
+            for (let i = 0; i < cart.length; i++) {
+                total = total + cart[i].price * cart[i].stock;
+            }
+            res.json({
+                status: 'success',
+                result: data,brands,colours, size, stock, cart, total
+            })
+        } catch(err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
     async function getAll(req, res) {
         try {
             let data = await service.allJoined();
@@ -7,7 +30,10 @@ module.exports = function (service) {
                 result: data
             })
         } catch (err) {
-            res.send(err);
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
         }
     }
     async function dropDowns(req, res) {
@@ -24,7 +50,10 @@ module.exports = function (service) {
                 stock
             })
         } catch (err) {
-
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
         }
     }
     async function cartSection(req, res) {
@@ -200,6 +229,7 @@ module.exports = function (service) {
         }
     }
     return {
+        allRoutes,
         getAll,
         dropDowns,
         cartSection,

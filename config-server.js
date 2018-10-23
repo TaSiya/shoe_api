@@ -8,7 +8,7 @@ module.exports = function () {
 
 
 var corsOptions = {
-    origin: 'https://kasi-shoe-api.herokuapp.com/',
+    origin: 'https://kasi-shoe-api.herokuapp.com/api/',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
     
