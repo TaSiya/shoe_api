@@ -2,16 +2,16 @@ const request = require('supertest');
 const assert = require("assert");
 const appWebRoutes = require('../app-web-routes');
 const express = require('express');
+const db = require('../db-config');
 
 let app = null;
 let pool = null;
 
 describe('GET /api/stock', function() {
     before(function() {
-
-        // initialize db pool
-
-        appWebRoutes(express(), pool);
+        app = express();
+        pool = db();
+        appWebRoutes(app, pool);
 
     });
 

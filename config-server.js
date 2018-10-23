@@ -5,11 +5,6 @@ module.exports = function () {
     const flash = require('express-flash');
     const cors = require('cors')
     const app = express();
-// var corsOptions = {
-//     origin: 'https://kasi-shoe-api.herokuapp.com/api/',
-//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-//   }
-    
     app.use(cors());
     app.use(session({
         secret: 'keyboard cat',
