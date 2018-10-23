@@ -1,0 +1,51 @@
+.foo {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+  }
+
+.pink{
+    background-color: pink;
+}
+
+.red {
+  background-color: crimson
+}
+
+.orange {
+  background-color: orange
+}
+
+.black {
+    background-color: black;
+}
+
+.grey {
+  background-color: #ddd;
+}
+
+.white {
+  background-color: white;
+}
+
+.black {
+  background-color: black;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.hidden {
+  display : none;
+}
+
+footer {
+  /* position: fixed; */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
