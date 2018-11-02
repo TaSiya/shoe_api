@@ -1,3 +1,4 @@
+/*
 const request = require('supertest');
 const assert = require("assert");
 const appWebRoutes = require('../app-web-routes');
@@ -130,3 +131,4 @@ describe('Testing the cart', function () {
             })
     })
 })
+*/
