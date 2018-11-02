@@ -6,7 +6,7 @@
   "scripts": {
     "run": "node dist/index.js",
     "run-dev": "nodemon dist/index.js",
-    "test": "mocha",
+    "test": "mocha --exit",
     "start": "node index.js"
   },
   "keywords": [],
