@@ -32,7 +32,7 @@
         </script>
 
     <script type="text/x-template" class="dropdowsBrandsTemplate">
-        <option selected>Choose shoe brand</option>
+        <option selected>Choose...</option>
         {{#each allBrands}}
             <option class='brand' value="{{name}}">{{name}}</option>
         {{/each}}
@@ -154,8 +154,9 @@
                 <div class="collapse" id="adding">
                     <div class="card card-body">
                         <h2 class="text-secondary mb-4">Adding to the stock</h2>
+                        <form class="form-inline">
                             <label for="brand">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 mr-5">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="Brand">Brand</label>
                                     </div>
@@ -165,7 +166,7 @@
                                 </div>
                             </label>
                             <label for="colours">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 mr-5">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="Colour">Colour</label>
                                     </div>
@@ -174,6 +175,7 @@
                                     </select>
                                 </div>
                             </label>
+                        
                             <label for="size">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -183,8 +185,10 @@
                                     
                                 </div>
                             </label>
+                        </form>
+                        <form class="form-inline">
                             <label for="stock">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 mr-5">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="Stock">Stock</label>
                                     </div>
@@ -198,10 +202,13 @@
                                     </div>
                                     <input type="number" step="0.01" name='price' class="priceSection">
                                 </div>
-
+                            </label>
+                        </form>
                                 <div class="w-100 text-center">
                                     <button onclick="addNewStock()" data-toggle="collapse" data-target="#adding" aria-expanded="false" aria-controls="collapseExample" class="btn btn-primary" >add stock</button>
                                 </div>
+                        
+                            
                     </div>
                 </div>
                 <div class="collapse" id="filter">
