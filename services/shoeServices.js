@@ -59,7 +59,7 @@ module.exports = function (pool) {
         let result = await pool.query('select * from items where size =$1 and brand_id = $2 and colour_id =$3',[item.size,item.brand_id,item.colour_id]);
         return result.rows;
     }
-    async function selectItem (id) {
+    async function selectItemJoined (id) {
         let result = await pool.query('select items.id, name, colourtag, price, size, stock from brands join items on brands.id = items.brand_id join colours on items.colour_id = colours.id where items.id =$1', [id]);
         return result.rows;
     }
@@ -67,6 +67,10 @@ module.exports = function (pool) {
         let result = await pool.query('select * from cart where item_id =$1', [id]);
         return result.rows;
     }
+    async function selectItem(id){
+        let result = await pool.query('select * from items where id=$1', [id]);
+        return result.rows;
+       }
 
     //********************************************************************************************************************************************** 
     //filtering the stock
@@ -111,17 +115,6 @@ module.exports = function (pool) {
     async function deleteinCart(id) {
         await pool.query('delete from cart where item_id = $1', [id]);
     }
-    async function removeInCart(id) {
-        let itemData = await selectInCart(id);
-        
-        if (itemData[0].stock == 1){
-            await updateStockOnly(itemData[0].stock, id);
-            await deleteinCart(id);
-        } else {
-            
-        }
-        await pool.query('update cart set stock')
-    }
 
     //********************************************************************************************************************************************** 
     //Logic
@@ -153,7 +146,7 @@ module.exports = function (pool) {
         }
     }
     async function addToCart(id) {
-        let itemData = await selectItem(id);
+        let itemData = await selectItemJoined(id);
         let data = itemData[0];
         console.log("data after adding: "+ data.stock);
         let cartData = await selectInCart(id);
@@ -198,13 +191,14 @@ module.exports = function (pool) {
         filterColour,
         updateStock,
         selectStock,
-        selectItem,
+        selectItemJoined,
         addingStock,
         addToCart,
         removeAllCart,
         removeAllStock,
         removeStock,
-        removeInCart
+        selectItem,
+        deleteinCart
 
     }
 }

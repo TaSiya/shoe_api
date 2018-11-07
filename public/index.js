@@ -90,6 +90,16 @@ function deleteCart() {
     })
 }
 
+function deleteItemInCart(id){
+    api.removeInCart(id).then( result => {
+        let response = result.data;
+        let status = response.status;
+        if (status === 'success') {
+            dom.reOrder();
+        }
+    })
+}
+
 function deleteStock() {
     deleteCart();
     api.removeStock().then(function (result) {
@@ -302,6 +312,10 @@ function APIServices() {
         return axios.get('./api/clearStock');
     }
 
+    function removeInCart(id){
+        return axios.get('./api/remove/'+id)
+    }
+
     function filterBrand(brand) {
         return axios.get('./api/filter/brand/' + brand);
     }
@@ -322,6 +336,7 @@ function APIServices() {
         addNewStock,
         removeCart,
         removeStock,
+        removeInCart,
         filterBrand,
         filterColour,
         filterSize,

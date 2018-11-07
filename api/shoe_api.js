@@ -157,7 +157,26 @@ module.exports = function (service) {
     async function removeItemCart(req, res) {
         try{
             let id = req.params.id;
-            
+            let item = await service.selectInCart(id);
+            let data = item[0];
+            let brandData = await service.selectBrand(data.shoe);
+            let colourData = await service.selectColour(data.shoecolour);
+            let brandId = brandData[0].id;
+            let colourId = colourData[0].id;
+
+            let itemData = {
+                brand_id : brandId,
+                colour_id : colourId,
+                stock : data.stock,
+                size : data.size,
+                price : data.price
+            };
+
+            await service.addingStock(itemData);
+            await service.deleteinCart(id)
+            res.json({
+                status : 'success',
+            })
         } catch(err) {
             res.json({
                 status: 'not found',
