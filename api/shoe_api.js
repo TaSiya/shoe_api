@@ -173,9 +173,22 @@ module.exports = function (service) {
             };
 
             await service.addingStock(itemData);
-            await service.deleteinCart(id)
+            await service.deleteinCart(id);
             res.json({
                 status : 'success',
+            })
+        } catch(err) {
+            res.json({
+                status: 'not found',
+                response: err.stack
+            })
+        }
+    }
+    async function cancelAllorder(req, res){
+        try{
+            await service.cancelOrders();
+            res.json({
+                status : 'success'
             })
         } catch(err) {
             res.json({
@@ -260,6 +273,7 @@ module.exports = function (service) {
         filterByBrand,
         filterByColour,
         filterBySize,
-        filterByStock
+        filterByStock,
+        cancelAllorder
     }
 }

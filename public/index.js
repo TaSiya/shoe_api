@@ -79,6 +79,18 @@ function addNewStock() {
     });
 }
 
+function cancelCart(){
+    api.cancel().then(result => {
+        let response = result.data;
+        let status = response.status;
+        console.log(status);
+        
+        if (status === 'success') {
+            dom.reOrder();
+        }
+    });
+}
+
 function deleteCart() {
     api.removeCart().then(function (result) {
         let response = result.data;
@@ -312,6 +324,10 @@ function APIServices() {
         return axios.get('./api/clearStock');
     }
 
+    function cancel(){
+        return axios.get('./api/cancel');
+    }
+
     function removeInCart(id){
         return axios.get('./api/remove/'+id)
     }
@@ -340,6 +356,7 @@ function APIServices() {
         filterBrand,
         filterColour,
         filterSize,
-        filterStock
+        filterStock,
+        cancel
     }
 }

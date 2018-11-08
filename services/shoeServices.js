@@ -134,11 +134,7 @@ module.exports = function (pool) {
     }
     async function minusStock(item) {
         let newStock = item.stock - 1 ;
-        console.log(newStock + " new stock");
-        
-        if(newStock == 0) {
-            console.log('here to remove: '+item.id);
-            
+        if(newStock == 0) {s
             await removeStock(item.id);
         }
         else{
@@ -148,7 +144,6 @@ module.exports = function (pool) {
     async function addToCart(id) {
         let itemData = await selectItemJoined(id);
         let data = itemData[0];
-        console.log("data after adding: "+ data.stock);
         let cartData = await selectInCart(id);
         let newStock = 1 ;
         if(cartData.length == 0) {
@@ -162,6 +157,28 @@ module.exports = function (pool) {
         
         await minusStock(data);
         
+    }
+    async function cancelOrders(){
+        let allCartItems = await allCart();
+        let itemData ;
+        for(let i = 0 ; i < allCartItems.length; i++){
+            let data = allCartItems[i];
+            let brandData = await selectBrand(data.shoe);
+            let colourData = await selectColour(data.shoecolour);
+            let brandId = brandData[0].id;
+            let colourId = colourData[0].id;
+
+            itemData = {
+                brand_id : brandId,
+                colour_id : colourId,
+                stock : data.stock,
+                size : data.size,
+                price : data.price
+            };
+            await addingStock(itemData);
+        }
+        
+        await removeAllCart();
     }
     async function removeAllCart(){
         await pool.query('delete from cart');
@@ -194,6 +211,7 @@ module.exports = function (pool) {
         selectItemJoined,
         addingStock,
         addToCart,
+        cancelOrders,
         removeAllCart,
         removeAllStock,
         removeStock,
