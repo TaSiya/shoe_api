@@ -126,8 +126,8 @@ function deleteStock() {
 
 function filteringBrand(brand) {
     api.filterBrand(brand).then(function (result) {
-        displayMessage.classList.add('alert-success');
-        displayMessage.innerHTML = 'Filtering using brand name: '+brand;
+        displayMessage.classList.add('alert-dark');
+        displayMessage.innerHTML = 'Filter Brand: '+brand;
         let response = result.data;
         let data = response.filtered;
         
@@ -140,8 +140,8 @@ function filteringBrand(brand) {
 
 function filteringColour(colour) {
     api.filterColour(colour).then(function (result) {
-        displayMessage.classList.add('alert-success');
-        displayMessage.innerHTML = 'Filtering using colour: '+colour;
+        displayMessage.classList.add('alert-dark');
+        displayMessage.innerHTML = 'Filter Colour: '+colour;
         let response = result.data;
         let data = response.filtered;
         
@@ -154,8 +154,8 @@ function filteringColour(colour) {
 
 function filteringSize(size) {
     api.filterSize(size).then(result => {
-        displayMessage.classList.add('alert-success');
-        displayMessage.innerHTML = 'Filtering using size: '+size;
+        displayMessage.classList.add('alert-dark');
+        displayMessage.innerHTML = 'Filter Size: '+size;
         let response = result.data;
         let data = response.filtered;
         let productTableHTML = stockTemplateInstance({
@@ -168,8 +168,8 @@ function filteringSize(size) {
 
 function filteringStock(stock) {
     api.filterStock(stock).then(result => {
-        displayMessage.classList.add('alert-success');
-        displayMessage.innerHTML = 'Filtering using stock: '+stock;
+        displayMessage.classList.add('alert-dark');
+        displayMessage.innerHTML = 'Filter Stock: '+stock;
         let response = result.data;
         let data = response.filtered;
         let productTableHTML = stockTemplateInstance({
@@ -183,19 +183,10 @@ function filteringStock(stock) {
 function clearFilter() {
     dom.reOrder();
     displayMessage.innerHTML = '';
-    displayMessage.classList.remove('alert-success')
+    displayMessage.classList.remove('alert-dark')
 }
 
-
 function DomFactory() {
-
-    // function callOtherDomain() {
-    //     if(invocation) {    
-    //       invocation.open('GET', url, true);
-    //       invocation.onreadystatechange = handler;
-    //       invocation.send(); 
-    //     }
-    //   }
 
     function reOrder() {
         clearFields();

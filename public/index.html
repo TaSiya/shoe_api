@@ -15,7 +15,7 @@
     <script type="text/x-template" class="stockTemplate">
         {{#each stock}}
                 <div class="col mb-3 id{{id}}">
-                    <div class="card" style="width: 14rem;">
+                    <div class="card box" style="width: 14rem;">
                         <img class="card-img-top" src="./img/{{name}}.jpg" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{name}}</h5>
@@ -90,9 +90,11 @@
 </head>
 
 <body>
+    
     <div class="container">
+        
         <div class="row w-100">
-            <div class="col mt-5 text-center ">
+            <div class="col mt-5 text-right ">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Cart
@@ -271,13 +273,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                     <a class="btn btn-warning mt-5" onclick="clearFilter()">Clear Filter</a>
             </div>
-            <div class="col">
-                <h2 class=" displayMessage alert alert-dismissible fade show" role="alert" ></h2>
+            <div class="col mt-4">
+                    <div class="col text-center">
+                            <h2 class=" displayMessage alert text-dark alert-dismissible fade show" role="alert"></h2>
+                            
+                        </div>
             </div>
         </div>
+        <div class="row">
+                
+            </div>
         <div class="row mt-5 insertStock">
             <!-- Put stock here  -->
         </div>
