@@ -35,8 +35,7 @@ create table cart (
     price FLOAT not null,
     size int not null,
     stock int not null,
-    item_id int not null,
-    foreign key (item_id) REFERENCES items(id)
+    item_id int not null
 );
 
 -- insert into cart (shoe, shoeColour, price, size, quantity, item_id) values ('amateki','white',890.99,6,15,71);
