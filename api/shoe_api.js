@@ -106,17 +106,8 @@ module.exports = function (service) {
     }
     async function addCart(req, res) {
         try {
-
             let id = req.params.id;
-            let idData = await service.selectItem(id);
-            let isFound ;
-            if(idData[0].stock == 1){
-                isFound = await service.addToCart(id);
-                await service.removeStock(id);
-            }
-            else{
-                isFound = await service.addToCart(id);
-            }
+            let isFound = await service.addToCart(id);
             res.json({
                 status: 'success',
                 isFound

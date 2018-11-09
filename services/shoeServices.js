@@ -134,7 +134,9 @@ module.exports = function (pool) {
     }
     async function minusStock(item) {
         let newStock = item.stock - 1 ;
-        if(newStock == 0) {s
+        console.log('minus stock ',newStock);
+        
+        if(newStock == 0) {
             await removeStock(item.id);
         }
         else{
