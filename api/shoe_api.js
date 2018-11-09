@@ -149,22 +149,7 @@ module.exports = function (service) {
         try{
             let id = req.params.id;
             let item = await service.selectInCart(id);
-            let data = item[0];
-            let brandData = await service.selectBrand(data.shoe);
-            let colourData = await service.selectColour(data.shoecolour);
-            let brandId = brandData[0].id;
-            let colourId = colourData[0].id;
-
-            let itemData = {
-                brand_id : brandId,
-                colour_id : colourId,
-                stock : data.stock,
-                size : data.size,
-                price : data.price
-            };
-
-            await service.addingStock(itemData);
-            await service.deleteinCart(id);
+            await service.cancelOrders(item)
             res.json({
                 status : 'success',
             })
@@ -177,7 +162,8 @@ module.exports = function (service) {
     }
     async function cancelAllorder(req, res){
         try{
-            await service.cancelOrders();
+            let allCartItems = await service.allCart();
+            await service.cancelOrders(allCartItems);
             res.json({
                 status : 'success'
             })

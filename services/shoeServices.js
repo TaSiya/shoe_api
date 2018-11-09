@@ -134,8 +134,6 @@ module.exports = function (pool) {
     }
     async function minusStock(item) {
         let newStock = item.stock - 1 ;
-        console.log('minus stock ',newStock);
-        
         if(newStock == 0) {
             await removeStock(item.id);
         }
@@ -155,13 +153,9 @@ module.exports = function (pool) {
             newStock = cartData[0].stock + 1;
             await updateCart(id, newStock);
         }
-        
-        
         await minusStock(data);
-        
     }
-    async function cancelOrders(){
-        let allCartItems = await allCart();
+    async function cancelOrders(allCartItems){
         let itemData ;
         for(let i = 0 ; i < allCartItems.length; i++){
             let data = allCartItems[i];
@@ -179,8 +173,13 @@ module.exports = function (pool) {
             };
             await addingStock(itemData);
         }
+        if(allCartItems.length == 1){
+            await deleteinCart(allCartItems[0].item_id);
+        }
+        else{
+            await removeAllCart();
+        }
         
-        await removeAllCart();
     }
     async function removeAllCart(){
         await pool.query('delete from cart');
